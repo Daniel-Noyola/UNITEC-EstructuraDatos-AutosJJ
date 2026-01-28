@@ -113,25 +113,25 @@ void cargarVistaDashboard()
 	int opcion = stoi(pedirDato("Ingresa el numero de la opcion: "));
 }
 
-// ----------------------
+// ---- Utilidades ----
+void imprimirLinea(string texto, string estilos, bool saltoLinea)
+{
+	cout << estilos << " " << texto << RESET_STYLE << COLORES_BASE;
+	if (saltoLinea)
+		cout << endl;
+}
+
+/*Imprime un menu con las opciones pasadas como parametro*/
 void mostrarMenu(string texto, vector<string> opciones)
 {
 	imprimirLinea(texto);
 
+	// Imprime una linea por cada opcion del menu
 	for (int i = 0; i < opciones.size(); i++)
 	{
 		string opcion = to_string(i + 1) + ". " + opciones[i];
 		imprimirLinea(opcion);
 	}
-}
-
-void imprimirLinea(string texto, string estilos, bool saltoLinea)
-{
-	const string sty = estilos;
-
-	cout << sty << " " << texto << RESET_STYLE << COLORES_BASE;
-	if (saltoLinea)
-		cout << endl;
 }
 
 string pedirDato(string texto, bool esSecreto)
@@ -140,9 +140,7 @@ string pedirDato(string texto, bool esSecreto)
 	imprimirLinea(texto, "", false);
 
 	if (!esSecreto)
-	{
 		getline(cin, dato);
-	}
 	else
 	{
 		char caracter;
