@@ -1,38 +1,42 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <iomanip>
 #include <conio.h>
 
 using namespace std;
 
-const int ANCHO_CAJA = 80;
 // ---- Tipografía ----
 const string TEXTO_BOLD = "\033[1m";
 const string TEXTO_ITALIC = "\033[3m";
 const string RESET_STYLE = "\033[0m";
 
+// ---- Colores ----
+const string COLOR_FONDO = "\033[48;2;0;112;192m";
+const string TEXTO_BLANCO = "\033[97m";
+const string COLORES_BASE = COLOR_FONDO + TEXTO_BLANCO;
+
 const int ASCII_ENTER = 13;
 const int ASCII_BACKSPACE = 8;
 
-// ---- Colores ----
-const string COLOR_FONDO = "\033[48;2;7;112;190m";
-const string TEXTO_BLANCO = "\033[97m";
-
-// ---- Login
+// ---- Login ----
 const string LOGIN_USER = "admin";
 const string LOGIN_PASSWORD = "123456";
 
+// ---- Utilidades ----
 void mostrarMenu(string texto, vector<string> opciones);
-void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true, int anchoCaja = ANCHO_CAJA);
+void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
 string pedirDato(string texto, bool esSecreto = false);
 
+// ---- Vistas
 void cargarVistaInicio();
 void cargarVistaLogin();
 void cargarVistaDashboard();
 
 int main()
 {
+	// Configura los colores de la terminal
+	cout << COLORES_BASE << "\033[2J\033[H";
+
 	cargarVistaInicio();
 	return 0;
 }
@@ -45,9 +49,9 @@ void cargarVistaInicio()
 	imprimirLinea("          Autos J&J");
 	imprimirLinea("");
 	imprimirLinea("Auditor:", TEXTO_ITALIC, false);
-	imprimirLinea("Mtra. Noemi Torrez Rubio", "", true, 71);
+	imprimirLinea("Mtra. Noemi Torrez Rubio");
 
-	imprimirLinea("Especialistas:");
+	imprimirLinea("Especialistas:", TEXTO_ITALIC);
 	imprimirLinea("  - Jesus Joan Molina Gutierrez");
 	imprimirLinea("  - Jesus Erick Reyes Sanchez");
 	imprimirLinea("  - Daniel Alberto Noyola Monroy");
@@ -121,14 +125,13 @@ void mostrarMenu(string texto, vector<string> opciones)
 	}
 }
 
-void imprimirLinea(string texto, string estilos, bool saltoLinea, int anchoCaja)
+void imprimirLinea(string texto, string estilos, bool saltoLinea)
 {
-	const string sty = TEXTO_BLANCO + COLOR_FONDO + estilos;
+	const string sty = estilos;
 
+	cout << sty << " " << texto << RESET_STYLE << COLORES_BASE;
 	if (saltoLinea)
-		cout << sty << " " << left << setw(anchoCaja) << texto << RESET_STYLE << endl;
-	else
-		cout << sty << " " << texto << RESET_STYLE;
+		cout << endl;
 }
 
 string pedirDato(string texto, bool esSecreto)
