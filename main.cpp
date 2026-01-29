@@ -13,6 +13,9 @@ const string RESET_STYLE = "\033[0m";
 // ---- Colores ----
 const string COLOR_FONDO = "\033[48;2;0;112;192m";
 const string TEXTO_BLANCO = "\033[97m";
+const string TEXTO_NARANJA = "\033[38;5;214m";
+
+const string TEXTO_ADVERTENCIA = TEXTO_ITALIC + TEXTO_NARANJA;
 const string COLORES_BASE = COLOR_FONDO + TEXTO_BLANCO;
 
 const int ASCII_ENTER = 13;
@@ -57,12 +60,11 @@ void cargarVistaInicio()
 	imprimirLinea("  - Daniel Alberto Noyola Monroy");
 	imprimirLinea("");
 
-	imprimirLinea("Vision de la empresa:");
-	imprimirLinea("Ser la empresa de reparacion de autos siniestrados");
+	imprimirLinea("Vision de la empresa:", TEXTO_ITALIC);
+	imprimirLinea("Consolidarnos como el referente indiscutible en la Zona Metropolitana de Mexico, transformando el mercado de autos siniestrados a traves de la transparencia, la excelencia tecnica y la seguridad garantizada en cada unidad.");
 	imprimirLinea("");
 
-	imprimirLinea("Presiona ENTER para continuar...");
-	imprimirLinea("");
+	imprimirLinea("Presiona ENTER para continuar...", "", false);
 	cin.get();
 
 	cargarVistaLogin();
@@ -77,11 +79,12 @@ void cargarVistaLogin()
 	{
 		system("cls");
 
-		imprimirLinea("Ingreso al sistema");
+		imprimirLinea("     Ingreso al sistema");
 		imprimirLinea("");
 
-		if (!mensaje.empty())
-			imprimirLinea(mensaje, TEXTO_ITALIC);
+		!mensaje.empty()
+			? imprimirLinea(mensaje, TEXTO_ADVERTENCIA)
+			: imprimirLinea("");
 
 		string usuario = pedirDato("Ingresa el usuario: ");
 		string password = pedirDato("Ingresa la contrasena: ", true);
@@ -106,11 +109,45 @@ void cargarVistaDashboard()
 		"Inventario",
 		"Salir"};
 
-	system("cls");
-	imprimirLinea("        Dashboard");
-	mostrarMenu("Opciones disponibles", opciones);
+	int opcion;
+	string mensaje;
+	while (true)
+	{
+		system("cls");
+		imprimirLinea("        Dashboard");
+		mensaje.empty()
+			? imprimirLinea("")
+			: imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 
-	int opcion = stoi(pedirDato("Ingresa el numero de la opcion: "));
+		mostrarMenu("Opciones disponibles", opciones);
+		try
+		{
+			opcion = stoi(pedirDato("Ingresa la opcion deseada: "));
+			if (opcion <= 0 || opcion > opciones.size())
+				throw invalid_argument("");
+
+			break;
+		}
+		catch (const std::invalid_argument &e)
+		{
+			mensaje = "Opcion no valida\n";
+			continue;
+		}
+	}
+
+	switch (opcion)
+	{
+	case 1:
+		imprimirLinea("Vista 1");
+		break;
+	case 2:
+		imprimirLinea("Vista 2");
+		break;
+
+	default:
+		imprimirLinea("Opcion no encontrada");
+		break;
+	}
 }
 
 // ---- Utilidades ----
