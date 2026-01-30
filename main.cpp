@@ -5,12 +5,12 @@
 
 using namespace std;
 
-// ---- Tipografía ----
+//& ---- Tipografía ----
 const string TEXTO_BOLD = "\033[1m";
 const string TEXTO_ITALIC = "\033[3m";
 const string RESET_STYLE = "\033[0m";
 
-// ---- Colores ----
+//& ---- Colores ----
 const string COLOR_FONDO = "\033[48;2;0;112;192m";
 const string TEXTO_BLANCO = "\033[97m";
 const string TEXTO_NARANJA = "\033[38;5;214m";
@@ -21,19 +21,26 @@ const string COLORES_BASE = COLOR_FONDO + TEXTO_BLANCO;
 const int ASCII_ENTER = 13;
 const int ASCII_BACKSPACE = 8;
 
-// ---- Login ----
+//& ---- Login ----
 const string LOGIN_USER = "admin";
 const string LOGIN_PASSWORD = "123456";
 
-// ---- Utilidades ----
+//& ---- Utilidades ----
 void mostrarMenu(string texto, vector<string> opciones);
 void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
 string pedirDato(string texto, bool esSecreto = false);
 
-// ---- Vistas
+//& ---- Vistas
 void cargarVistaInicio();
 void cargarVistaLogin();
 void cargarVistaDashboard();
+//& ---- Vistas Menu Principal ----
+void cargarVistaClientes();
+void cargarVistaVentas();
+void cargarVistaCompras();
+void cargarVistaProveedores();
+void cargarVistaEmpleados();
+void cargarVistaInventario();
 
 int main()
 {
@@ -44,7 +51,7 @@ int main()
 	return 0;
 }
 
-// ------- Vistas --------
+//? ------- Vistas --------
 void cargarVistaInicio()
 {
 	system("cls");
@@ -100,6 +107,7 @@ void cargarVistaLogin()
 
 void cargarVistaDashboard()
 {
+	//* Opciones del menu principal
 	vector<string> opciones = {
 		"Clientes",
 		"Ventas",
@@ -135,22 +143,74 @@ void cargarVistaDashboard()
 		}
 	}
 
+	//* Navega a la vista seleccionada
 	switch (opcion)
 	{
 	case 1:
-		imprimirLinea("Vista 1");
+		cargarVistaClientes();
 		break;
 	case 2:
-		imprimirLinea("Vista 2");
+		cargarVistaVentas();
 		break;
-
+	case 3:
+		cargarVistaCompras();
+		break;
+	case 4:
+		cargarVistaProveedores();
+		break;
+	case 5:
+		cargarVistaEmpleados();
+		break;
+	case 6:
+		cargarVistaInventario();
+		break;
+	case 7:
+		system("cls");
+		imprimirLinea("Saliendo del sistema... \n Adios!!");
+		break;
 	default:
 		imprimirLinea("Opcion no encontrada");
 		break;
 	}
 }
 
-// ---- Utilidades ----
+void cargarVistaClientes()
+{
+	system("cls");
+	imprimirLinea("        Vista Clientes");
+}
+
+void cargarVistaVentas()
+{
+	system("cls");
+	imprimirLinea("        Vista Ventas");
+}
+
+void cargarVistaCompras()
+{
+	system("cls");
+	imprimirLinea("        Vista Compras");
+}
+
+void cargarVistaProveedores()
+{
+	system("cls");
+	imprimirLinea("        Vista Proveedores");
+}
+
+void cargarVistaEmpleados()
+{
+	system("cls");
+	imprimirLinea("        Vista Empleados");
+}
+
+void cargarVistaInventario()
+{
+	system("cls");
+	imprimirLinea("        Vista Inventario");
+}
+
+//? ---- Utilidades ----
 void imprimirLinea(string texto, string estilos, bool saltoLinea)
 {
 	cout << estilos << " " << texto << RESET_STYLE << COLORES_BASE;
