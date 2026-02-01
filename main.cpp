@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <string>
+//#include <string>
 #include <conio.h>
 
 using namespace std;
@@ -29,9 +29,10 @@ const string LOGIN_PASSWORD = "123456";
 void mostrarMenu(string texto, vector<string> opciones);
 void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
 string pedirDato(string texto, bool esSecreto = false);
-void calcularTiempoComoCliente(int fechaAlta, int *tiempoComoCliente);
+void calcularDiferenciaDeTiempo(int fechaAlta, int *diferenciaTiempo);
 
 void pedirDatosCliente();
+void pedirDatosProveedor();
 
 //& ---- Vistas
 void cargarVistaInicio();
@@ -153,7 +154,7 @@ void cargarVistaDashboard()
 			}
 		}
 
-		mensaje = ""; // Limpiar mensaje despues de una eleccion exitosa
+		mensaje = ""; // Limpia el mensaje despues de una eleccion exitosa
 
 		//* Navega a la vista seleccionada
 		switch (opcion)
@@ -217,6 +218,7 @@ void cargarVistaProveedores()
 {
 	system("cls");
 	imprimirLinea("        Vista Proveedores");
+	pedirDatosProveedor();
 }
 
 void cargarVistaEmpleados()
@@ -290,10 +292,10 @@ string pedirDato(string texto, bool esSecreto)
 	return dato;
 }
 
-void calcularTiempoComoCliente(int fechaAlta, int *tiempoComoCliente)
+void calcularDiferenciaDeTiempo(int fechaInicio, int *diferenciaTiempo)
 {
 	int anioActual = 2026;
-	*tiempoComoCliente = anioActual - fechaAlta;
+	*diferenciaTiempo = anioActual - fechaInicio;
 }
 
 void pedirDatosCliente()
@@ -322,8 +324,40 @@ void pedirDatosCliente()
 		}
 	}
 
-	calcularTiempoComoCliente(fechaAlta, &tiempoComoCliente);
+	calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoCliente);
 
 	string mensaje = "\n El cliente " + nombre + " lleva " + to_string(tiempoComoCliente) + " anios como cliente.";
+	imprimirLinea(mensaje);
+}
+
+void pedirDatosProveedor()
+{
+	int tiempoComoProveedor;
+
+	string id = pedirDato("Ingresa el ID del proveedor: ");
+	string nombre = pedirDato("Ingresa el nombre del proveedor: ");
+	string telefono = pedirDato("Ingresa el telefono del proveedor: ");
+	string edad = pedirDato("Ingresa la edad del proveedor: ");
+	string codigoPostal = pedirDato("Ingresa el codigo postal del proveedor: ");
+
+	int fechaAlta;
+	while (true)
+	{
+		try
+		{
+			fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
+			if (fechaAlta >= 1900 && fechaAlta <= 2026)
+				break;
+			imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+		}
+		catch (std::invalid_argument)
+		{
+			imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+		}
+	}
+
+	calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoProveedor);
+
+	string mensaje = "\n El proveedor " + nombre + " lleva " + to_string(tiempoComoProveedor) + " anios como proveedor.";
 	imprimirLinea(mensaje);
 }
