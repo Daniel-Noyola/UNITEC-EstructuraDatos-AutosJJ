@@ -29,10 +29,13 @@ const string LOGIN_PASSWORD = "123456";
 void mostrarMenu(string texto, vector<string> opciones);
 void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
 string pedirDato(string texto, bool esSecreto = false);
+void calcularTiempoComoCliente(int fechaAlta, int *tiempoComoCliente);
+
+void pedirDatosCliente();
 
 //& ---- Vistas
 void cargarVistaInicio();
-void cargarVistaLogin();
+bool cargarVistaLogin();
 void cargarVistaDashboard();
 //& ---- Vistas Menu Principal ----
 void cargarVistaClientes();
@@ -48,6 +51,12 @@ int main()
 	cout << COLORES_BASE << "\033[2J\033[H";
 
 	cargarVistaInicio();
+
+	if (cargarVistaLogin())
+	{
+		cargarVistaDashboard();
+	}
+
 	return 0;
 }
 
@@ -73,11 +82,9 @@ void cargarVistaInicio()
 
 	imprimirLinea("Presiona ENTER para continuar...", "", false);
 	cin.get();
-
-	cargarVistaLogin();
 }
 
-void cargarVistaLogin()
+bool cargarVistaLogin()
 {
 	bool credencialesCorrectas = false;
 	string mensaje = "";
@@ -99,10 +106,9 @@ void cargarVistaLogin()
 		if (usuario != LOGIN_USER || password != LOGIN_PASSWORD)
 			mensaje = "Credenciales incorrectas, intenta de nuevo";
 		else
-			credencialesCorrectas = true;
+			return true;
 	}
-
-	cargarVistaDashboard();
+	return false;
 }
 
 void cargarVistaDashboard()
@@ -119,58 +125,72 @@ void cargarVistaDashboard()
 
 	int opcion;
 	string mensaje;
-	while (true)
+	bool salir = false;
+
+	while (!salir)
 	{
-		system("cls");
-		imprimirLinea("        Dashboard");
-		mensaje.empty()
-			? imprimirLinea("")
-			: imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
-
-		mostrarMenu("Opciones disponibles", opciones);
-		try
+		// Ciclo para mostrar el menu y obtener una opcion valida
+		while (true)
 		{
-			opcion = stoi(pedirDato("Ingresa la opcion deseada: "));
-			if (opcion <= 0 || opcion > opciones.size())
-				throw invalid_argument("");
+			system("cls");
+			imprimirLinea("        Dashboard");
+			mensaje.empty()
+				? imprimirLinea("")
+				: imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 
+			mostrarMenu("Opciones disponibles", opciones);
+			try
+			{
+				opcion = stoi(pedirDato("Ingresa la opcion deseada: "));
+				if (opcion <= 0 || opcion > opciones.size())
+					throw invalid_argument("");
+
+				break;
+			}
+			catch (const std::invalid_argument &e)
+			{
+				mensaje = "Opcion no valida\n";
+			}
+		}
+
+		mensaje = ""; // Limpiar mensaje despues de una eleccion exitosa
+
+		//* Navega a la vista seleccionada
+		switch (opcion)
+		{
+		case 1:
+			cargarVistaClientes();
+			break;
+		case 2:
+			cargarVistaVentas();
+			break;
+		case 3:
+			cargarVistaCompras();
+			break;
+		case 4:
+			cargarVistaProveedores();
+			break;
+		case 5:
+			cargarVistaEmpleados();
+			break;
+		case 6:
+			cargarVistaInventario();
+			break;
+		case 7:
+			system("cls");
+			imprimirLinea("Saliendo del sistema... \n Adios!!");
+			salir = true;
+			break;
+		default:
+			imprimirLinea("Opcion no encontrada");
 			break;
 		}
-		catch (const std::invalid_argument &e)
-		{
-			mensaje = "Opcion no valida\n";
-			continue;
-		}
-	}
 
-	//* Navega a la vista seleccionada
-	switch (opcion)
-	{
-	case 1:
-		cargarVistaClientes();
-		break;
-	case 2:
-		cargarVistaVentas();
-		break;
-	case 3:
-		cargarVistaCompras();
-		break;
-	case 4:
-		cargarVistaProveedores();
-		break;
-	case 5:
-		cargarVistaEmpleados();
-		break;
-	case 6:
-		cargarVistaInventario();
-		break;
-	case 7:
-		system("cls");
-		imprimirLinea("Saliendo del sistema... \n Adios!!");
-		break;
-	default:
-		imprimirLinea("Opcion no encontrada");
-		break;
+		if (!salir)
+		{
+			imprimirLinea("Presiona ENTER para volver al dashboard...", "", false);
+			cin.get();
+		}
 	}
 }
 
@@ -178,6 +198,7 @@ void cargarVistaClientes()
 {
 	system("cls");
 	imprimirLinea("        Vista Clientes");
+	pedirDatosCliente();
 }
 
 void cargarVistaVentas()
@@ -214,6 +235,7 @@ void cargarVistaInventario()
 void imprimirLinea(string texto, string estilos, bool saltoLinea)
 {
 	cout << estilos << " " << texto << RESET_STYLE << COLORES_BASE;
+	// cout << " " << texto;
 	if (saltoLinea)
 		cout << endl;
 }
@@ -266,4 +288,42 @@ string pedirDato(string texto, bool esSecreto)
 		}
 	}
 	return dato;
+}
+
+void calcularTiempoComoCliente(int fechaAlta, int *tiempoComoCliente)
+{
+	int anioActual = 2026;
+	*tiempoComoCliente = anioActual - fechaAlta;
+}
+
+void pedirDatosCliente()
+{
+	int tiempoComoCliente;
+
+	string id = pedirDato("Ingresa el ID del cliente: ");
+	string nombre = pedirDato("Ingresa el nombre del cliente: ");
+	string telefono = pedirDato("Ingresa el telefono del cliente: ");
+	string edad = pedirDato("Ingresa la edad del cliente: ");
+	string codigoPostal = pedirDato("Ingresa el codigo postal del cliente: ");
+
+	int fechaAlta;
+	while (true)
+	{
+		try
+		{
+			fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
+			if (fechaAlta >= 1900 && fechaAlta <= 2026)
+				break;
+			imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+		}
+		catch (std::invalid_argument)
+		{
+			imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+		}
+	}
+
+	calcularTiempoComoCliente(fechaAlta, &tiempoComoCliente);
+
+	string mensaje = "\n El cliente " + nombre + " lleva " + to_string(tiempoComoCliente) + " anios como cliente.";
+	imprimirLinea(mensaje);
 }
