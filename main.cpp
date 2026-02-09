@@ -33,17 +33,19 @@ struct IO
 };
 void calcularDiferenciaDeTiempo(int fechaAlta, int *diferenciaTiempo);
 
-//& ---- Vistas
-void cargarVistaInicio();
-void cargarVistaLogin();
-void cargarVistaDashboard();
-//& ---- Vistas Menu Principal ----
-void cargarVistaClientes();
-void cargarVistaVentas();
-void cargarVistaCompras();
-void cargarVistaProveedores();
-void cargarVistaEmpleados();
-void cargarVistaInventario();
+//& ---- Vistas ----
+struct Vista
+{
+	static void inicio();
+	static void login();
+	static void dashboard();
+	static void clientes();
+	static void ventas();
+	static void compras();
+	static void proveedores();
+	static void empleados();
+	static void inventario();
+};
 
 //& ---- Structs ----
 struct Cliente
@@ -214,15 +216,15 @@ int main()
 	// Configura los colores de la terminal
 	cout << COLORES_BASE << "\033[2J\033[H";
 
-	cargarVistaInicio();
-	cargarVistaLogin();
-	cargarVistaDashboard();
+	Vista::inicio();
+	Vista::login();
+	Vista::dashboard();
 
 	return 0;
 }
 
 //? ------- Vistas --------
-void cargarVistaInicio()
+void Vista::inicio()
 {
 	system("cls");
 
@@ -245,7 +247,7 @@ void cargarVistaInicio()
 	cin.get();
 }
 
-void cargarVistaLogin()
+void Vista::login()
 {
 	bool credencialesCorrectas = false;
 	string mensaje = "";
@@ -272,7 +274,7 @@ void cargarVistaLogin()
 	}
 }
 
-void cargarVistaDashboard()
+void Vista::dashboard()
 {
 	//* Opciones del menu principal
 	vector<string> opciones = {
@@ -320,22 +322,22 @@ void cargarVistaDashboard()
 		switch (opcion)
 		{
 		case 1:
-			cargarVistaClientes();
+			Vista::clientes();
 			break;
 		case 2:
-			cargarVistaVentas();
+			Vista::ventas();
 			break;
 		case 3:
-			cargarVistaCompras();
+			Vista::compras();
 			break;
 		case 4:
-			cargarVistaProveedores();
+			Vista::proveedores();
 			break;
 		case 5:
-			cargarVistaEmpleados();
+			Vista::empleados();
 			break;
 		case 6:
-			cargarVistaInventario();
+			Vista::inventario();
 			break;
 		case 7:
 			system("cls");
@@ -355,7 +357,7 @@ void cargarVistaDashboard()
 	}
 }
 
-void cargarVistaClientes()
+void Vista::clientes()
 {
 	vector<string> opciones = {"Listar clientes", "Agregar cliente", "Volver"};
 	int opcion;
@@ -420,32 +422,32 @@ void cargarVistaClientes()
 	}
 }
 
-void cargarVistaVentas()
+void Vista::ventas()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Ventas");
 }
 
-void cargarVistaCompras()
+void Vista::compras()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Compras");
 }
 
-void cargarVistaProveedores()
+void Vista::proveedores()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Proveedores");
 	Proveedor::pedirDatos();
 }
 
-void cargarVistaEmpleados()
+void Vista::empleados()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Empleados");
 }
 
-void cargarVistaInventario()
+void Vista::inventario()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Inventario");
