@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-//#include <string>
 #include <conio.h>
 
 using namespace std;
@@ -36,7 +35,7 @@ void pedirDatosProveedor();
 
 //& ---- Vistas
 void cargarVistaInicio();
-bool cargarVistaLogin();
+void cargarVistaLogin();
 void cargarVistaDashboard();
 //& ---- Vistas Menu Principal ----
 void cargarVistaClientes();
@@ -52,11 +51,8 @@ int main()
 	cout << COLORES_BASE << "\033[2J\033[H";
 
 	cargarVistaInicio();
-
-	if (cargarVistaLogin())
-	{
-		cargarVistaDashboard();
-	}
+	cargarVistaLogin();
+	cargarVistaDashboard();
 
 	return 0;
 }
@@ -85,7 +81,7 @@ void cargarVistaInicio()
 	cin.get();
 }
 
-bool cargarVistaLogin()
+void cargarVistaLogin()
 {
 	bool credencialesCorrectas = false;
 	string mensaje = "";
@@ -97,9 +93,10 @@ bool cargarVistaLogin()
 		imprimirLinea("     Ingreso al sistema");
 		imprimirLinea("");
 
-		!mensaje.empty()
-			? imprimirLinea(mensaje, TEXTO_ADVERTENCIA)
-			: imprimirLinea("");
+		if (!mensaje.empty())
+			imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
+		else
+			imprimirLinea("");
 
 		string usuario = pedirDato("Ingresa el usuario: ");
 		string password = pedirDato("Ingresa la contrasena: ", true);
@@ -107,9 +104,8 @@ bool cargarVistaLogin()
 		if (usuario != LOGIN_USER || password != LOGIN_PASSWORD)
 			mensaje = "Credenciales incorrectas, intenta de nuevo";
 		else
-			return true;
+			credencialesCorrectas = true;
 	}
-	return false;
 }
 
 void cargarVistaDashboard()
@@ -237,7 +233,6 @@ void cargarVistaInventario()
 void imprimirLinea(string texto, string estilos, bool saltoLinea)
 {
 	cout << estilos << " " << texto << RESET_STYLE << COLORES_BASE;
-	// cout << " " << texto;
 	if (saltoLinea)
 		cout << endl;
 }
