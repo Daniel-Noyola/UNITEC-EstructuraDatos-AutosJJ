@@ -25,9 +25,12 @@ const string LOGIN_USER = "admin";
 const string LOGIN_PASSWORD = "123456";
 
 //& ---- Utilidades ----
-void mostrarMenu(string texto, vector<string> opciones);
-void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
-string pedirDato(string texto, bool esSecreto = false);
+struct IO
+{
+	static void mostrarMenu(string texto, vector<string> opciones);
+	static void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
+	static string pedirDato(string texto, bool esSecreto = false);
+};
 void calcularDiferenciaDeTiempo(int fechaAlta, int *diferenciaTiempo);
 
 //& ---- Vistas
@@ -51,14 +54,14 @@ struct Cliente
 		direccion,
 		telefono,
 		correo;
-	vector<Cliente> clientes;
+	static std::vector<Cliente> clientes;
 
 	static void listarClientes(vector<Cliente> clientes)
 	{
 		for (const Cliente &cliente : clientes)
 		{
 			string info = "ID: " + to_string(cliente.id) + " | Nombre: " + cliente.nombre + " | Tiempo como cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
-			imprimirLinea(info);
+			IO::imprimirLinea(info);
 		}
 	}
 
@@ -66,40 +69,44 @@ struct Cliente
 	{
 		Cliente nuevoCliente;
 
-		nuevoCliente.id = stoi(pedirDato("Ingresa el ID del cliente: "));
-		nuevoCliente.nombre = pedirDato("Ingresa el nombre del cliente: ");
-		nuevoCliente.direccion = pedirDato("Ingresa la direccion del cliente: ");
-		nuevoCliente.telefono = pedirDato("Ingresa el telefono del cliente: ");
-		nuevoCliente.correo = pedirDato("Ingresa el correo del cliente: ");
+		nuevoCliente.id = stoi(IO::pedirDato("Ingresa el ID del cliente: "));
+		nuevoCliente.nombre = IO::pedirDato("Ingresa el nombre del cliente: ");
+		nuevoCliente.direccion = IO::pedirDato("Ingresa la direccion del cliente: ");
+		nuevoCliente.telefono = IO::pedirDato("Ingresa el telefono del cliente: ");
+		nuevoCliente.correo = IO::pedirDato("Ingresa el correo del cliente: ");
 		int fechaAlta;
 		while (true)
 		{
 			try
 			{
-				fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
+				fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del cliente: "));
 				if (fechaAlta >= 1900 && fechaAlta <= 2026)
 					break;
-				imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
 			}
 			catch (std::invalid_argument)
 			{
-				imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+				IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
 			}
 		}
 
 		calcularDiferenciaDeTiempo(fechaAlta, &nuevoCliente.tiempoComoCliente);
 
 		string mensaje = "\n El cliente " + nuevoCliente.nombre + " lleva " + to_string(nuevoCliente.tiempoComoCliente) + " anios como cliente.";
-		imprimirLinea(mensaje);
+		IO::imprimirLinea(mensaje);
+
+		Cliente::clientes.push_back(nuevoCliente);
+		IO::imprimirLinea("Cliente agregado exitosamente!", TEXTO_ITALIC);
 
 		if (!agregarOtro)
 		{
-			string respuesta = pedirDato("\nDeseas agregar otro cliente? (s/n): ");
+			string respuesta = IO::pedirDato("\nDeseas agregar otro cliente? (s/n): ");
 			if (respuesta == "s" || respuesta == "S")
 				pedirDatos(true);
 		}
 	}
 };
+
 struct Proveedor
 {
 	int id,
@@ -108,51 +115,55 @@ struct Proveedor
 		direccion,
 		telefono,
 		correo;
+	static std::vector<Proveedor> proveedores;
 
 	static void listarProveedores(vector<Proveedor> proveedores)
 	{
 		for (const Proveedor &proveedor : proveedores)
 		{
 			string info = "ID: " + to_string(proveedor.id) + " | Nombre: " + proveedor.nombre + " | Tiempo como proveedor: " + to_string(proveedor.tiempoComoProveedor) + " anios";
-			imprimirLinea(info);
+			IO::imprimirLinea(info);
 		}
 	}
 
 	static void pedirDatos(bool agregarOtro = false)
 	{
-		int tiempoComoProveedor;
+		Proveedor nuevoProveedor;
 
-		string id = pedirDato("Ingresa el ID del proveedor: ");
-		string nombre = pedirDato("Ingresa el nombre del proveedor: ");
-		string telefono = pedirDato("Ingresa el telefono del proveedor: ");
-		string edad = pedirDato("Ingresa la edad del proveedor: ");
-		string codigoPostal = pedirDato("Ingresa el codigo postal del proveedor: ");
+		nuevoProveedor.id = stoi(IO::pedirDato("Ingresa el ID del proveedor: "));
+		nuevoProveedor.nombre = IO::pedirDato("Ingresa el nombre del proveedor: ");
+		nuevoProveedor.direccion = IO::pedirDato("Ingresa la direccion del proveedor: ");
+		nuevoProveedor.telefono = IO::pedirDato("Ingresa el telefono del proveedor: ");
+		nuevoProveedor.correo = IO::pedirDato("Ingresa el correo del proveedor: ");
 
 		int fechaAlta;
 		while (true)
 		{
 			try
 			{
-				fechaAlta = stoi(pedirDato("Ingresa el anio de alta del proveedor: "));
+				fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del proveedor: "));
 				if (fechaAlta >= 1900 && fechaAlta <= 2026)
 					break;
-				imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
 			}
 			catch (std::invalid_argument)
 			{
-				imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+				IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
 			}
 		}
 
-		calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoProveedor);
+		calcularDiferenciaDeTiempo(fechaAlta, &nuevoProveedor.tiempoComoProveedor);
 
-		string mensaje = "\n El proveedor " + nombre + " lleva " + to_string(tiempoComoProveedor) + " anios como proveedor.";
-		imprimirLinea(mensaje);
+		string mensaje = "\n El proveedor " + nuevoProveedor.nombre + " lleva " + to_string(nuevoProveedor.tiempoComoProveedor) + " anios como proveedor.";
+		IO::imprimirLinea(mensaje);
 
-		// Llamada recursiva si el usuario desea agregar otro proveedor
+		Proveedor::proveedores.push_back(nuevoProveedor);
+		IO::imprimirLinea("Proveedor agregado exitosamente!", TEXTO_ITALIC);
+
+		// Aplicación de recursividad
 		if (!agregarOtro)
 		{
-			string respuesta = pedirDato("\nDeseas agregar otro proveedor? (s/n): ");
+			string respuesta = IO::pedirDato("\nDeseas agregar otro proveedor? (s/n): ");
 			if (respuesta == "s" || respuesta == "S")
 				pedirDatos(true);
 		}
@@ -184,6 +195,20 @@ struct CostosVehiculo
 		costoTotal;
 };
 
+std::vector<Cliente> Cliente::clientes = {
+	{1, 5, "Juan Perez", "Av. Reforma 123, CDMX", "5512345678", "juan.perez@email.com"},
+	{2, 3, "Maria Gonzalez", "Calle 5 de Mayo 45, Puebla", "2229876543", "maria.gonzalez@email.com"},
+	{3, 8, "Carlos Lopez", "Blvd. Kukulcan Km 12, Cancun", "9981122334", "carlos.lopez@email.com"},
+	{4, 2, "Ana Martinez", "Av. Vallarta 2440, Guadalajara", "3334455667", "ana.martinez@email.com"},
+	{5, 10, "Pedro Sanchez", "Calle Madero 101, Monterrey", "8189988776", "pedro.sanchez@email.com"}};
+
+std::vector<Proveedor> Proveedor::proveedores = {
+	{1, 10, "Refacciones del Norte", "Norte 45, Monterrey", "8181234567", "ventas@refnor.com"},
+	{2, 5, "Llantas y Rines", "Sur 12, CDMX", "5512345678", "contacto@llantasyrames.com"},
+	{3, 8, "Baterias y Acumuladores", "Oriente 23, Puebla", "2229876543", "info@baterias.com"},
+	{4, 3, "Aceites y Lubricantes", "Poniente 56, Guadalajara", "3334455667", "ventas@aceites.com"},
+	{5, 15, "Cristales y Parabrisas", "Centro, Cancun", "9981122334", "atencion@cristales.com"}};
+
 int main()
 {
 	// Configura los colores de la terminal
@@ -201,22 +226,22 @@ void cargarVistaInicio()
 {
 	system("cls");
 
-	imprimirLinea("          Autos J&J");
-	imprimirLinea("");
-	imprimirLinea("Auditor:", TEXTO_ITALIC, false);
-	imprimirLinea("Mtra. Noemi Torrez Rubio");
+	IO::imprimirLinea("          Autos J&J");
+	IO::imprimirLinea("");
+	IO::imprimirLinea("Auditor:", TEXTO_ITALIC, false);
+	IO::imprimirLinea("Mtra. Noemi Torrez Rubio");
 
-	imprimirLinea("Especialistas:", TEXTO_ITALIC);
-	imprimirLinea("  - Jesus Joan Molina Gutierrez");
-	imprimirLinea("  - Jesus Erick Reyes Sanchez");
-	imprimirLinea("  - Daniel Alberto Noyola Monroy");
-	imprimirLinea("");
+	IO::imprimirLinea("Especialistas:", TEXTO_ITALIC);
+	IO::imprimirLinea("  - Jesus Joan Molina Gutierrez");
+	IO::imprimirLinea("  - Jesus Erick Reyes Sanchez");
+	IO::imprimirLinea("  - Daniel Alberto Noyola Monroy");
+	IO::imprimirLinea("");
 
-	imprimirLinea("Vision de la empresa:", TEXTO_ITALIC);
-	imprimirLinea("Consolidarnos como el referente indiscutible en la Zona Metropolitana de Mexico, transformando el mercado de autos siniestrados a traves de la transparencia, la excelencia tecnica y la seguridad garantizada en cada unidad.");
-	imprimirLinea("");
+	IO::imprimirLinea("Vision de la empresa:", TEXTO_ITALIC);
+	IO::imprimirLinea("Consolidarnos como el referente indiscutible en la Zona Metropolitana de Mexico, transformando el mercado de autos siniestrados a traves de la transparencia, la excelencia tecnica y la seguridad garantizada en cada unidad.");
+	IO::imprimirLinea("");
 
-	imprimirLinea("Presiona ENTER para continuar...", "", false);
+	IO::imprimirLinea("Presiona ENTER para continuar...", "", false);
 	cin.get();
 }
 
@@ -229,16 +254,16 @@ void cargarVistaLogin()
 	{
 		system("cls");
 
-		imprimirLinea("     Ingreso al sistema");
-		imprimirLinea("");
+		IO::imprimirLinea("     Ingreso al sistema");
+		IO::imprimirLinea("");
 
 		if (!mensaje.empty())
-			imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
+			IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 		else
-			imprimirLinea("");
+			IO::imprimirLinea("");
 
-		string usuario = pedirDato("Ingresa el usuario: ");
-		string password = pedirDato("Ingresa la contrasena: ", true);
+		string usuario = IO::pedirDato("Ingresa el usuario: ");
+		string password = IO::pedirDato("Ingresa la contrasena: ", true);
 
 		if (usuario != LOGIN_USER || password != LOGIN_PASSWORD)
 			mensaje = "Credenciales incorrectas, intenta de nuevo";
@@ -269,15 +294,15 @@ void cargarVistaDashboard()
 		while (true)
 		{
 			system("cls");
-			imprimirLinea("        Dashboard");
+			IO::imprimirLinea("        Dashboard");
 			mensaje.empty()
-				? imprimirLinea("")
-				: imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
+				? IO::imprimirLinea("")
+				: IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 
-			mostrarMenu("Opciones disponibles", opciones);
+			IO::mostrarMenu("Opciones disponibles", opciones);
 			try
 			{
-				opcion = stoi(pedirDato("Ingresa la opcion deseada: "));
+				opcion = stoi(IO::pedirDato("Ingresa la opcion deseada: "));
 				if (opcion <= 0 || opcion > opciones.size())
 					throw invalid_argument("");
 
@@ -314,17 +339,17 @@ void cargarVistaDashboard()
 			break;
 		case 7:
 			system("cls");
-			imprimirLinea("Saliendo del sistema... \n Adios!!");
+			IO::imprimirLinea("Saliendo del sistema... \n Adios!!");
 			salir = true;
 			break;
 		default:
-			imprimirLinea("Opcion no encontrada");
+			IO::imprimirLinea("Opcion no encontrada");
 			break;
 		}
 
 		if (!salir)
 		{
-			imprimirLinea("Presiona ENTER para volver al dashboard...", "", false);
+			IO::imprimirLinea("Presiona ENTER para volver al dashboard...", "", false);
 			cin.get();
 		}
 	}
@@ -332,44 +357,102 @@ void cargarVistaDashboard()
 
 void cargarVistaClientes()
 {
+	vector<string> opciones = {"Listar clientes", "Agregar cliente", "Volver"};
+	int opcion;
+	string mensaje;
+	bool volver = false;
+
 	system("cls");
-	imprimirLinea("        Vista Clientes");
-	Cliente::pedirDatos();
+
+	while (!volver)
+	{
+		while (true)
+		{
+			system("cls");
+			IO::imprimirLinea("        Vista Clientes");
+			mensaje.empty() ? IO::imprimirLinea("") : IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
+
+			IO::mostrarMenu("Opciones disponibles", opciones);
+			try
+			{
+				opcion = stoi(IO::pedirDato("Ingresa la opcion deseada: "));
+				if (opcion <= 0 || opcion > opciones.size())
+					throw invalid_argument("");
+
+				break;
+			}
+			catch (const std::invalid_argument &e)
+			{
+				mensaje = "Opcion no valida";
+			}
+		}
+
+		mensaje = "";
+
+		switch (opcion)
+		{
+		case 1: // Listar clientes
+			system("cls");
+			IO::imprimirLinea("Lista de clientes:");
+			if (Cliente::clientes.empty())
+				IO::imprimirLinea("No hay clientes registrados.", TEXTO_ADVERTENCIA);
+			else
+				Cliente::listarClientes(Cliente::clientes);
+			break;
+		case 2: // Agregar cliente
+			system("cls");
+			IO::imprimirLinea("Agregar cliente:");
+			Cliente::pedirDatos();
+			break;
+		case 3: // Volver
+			volver = true;
+			break;
+		default:
+			IO::imprimirLinea("Opcion no encontrada");
+			break;
+		}
+
+		if (!volver)
+		{
+			IO::imprimirLinea("Presiona ENTER para continuar...", "", false);
+			cin.get();
+		}
+	}
 }
 
 void cargarVistaVentas()
 {
 	system("cls");
-	imprimirLinea("        Vista Ventas");
+	IO::imprimirLinea("        Vista Ventas");
 }
 
 void cargarVistaCompras()
 {
 	system("cls");
-	imprimirLinea("        Vista Compras");
+	IO::imprimirLinea("        Vista Compras");
 }
 
 void cargarVistaProveedores()
 {
 	system("cls");
-	imprimirLinea("        Vista Proveedores");
+	IO::imprimirLinea("        Vista Proveedores");
 	Proveedor::pedirDatos();
 }
 
 void cargarVistaEmpleados()
 {
 	system("cls");
-	imprimirLinea("        Vista Empleados");
+	IO::imprimirLinea("        Vista Empleados");
 }
 
 void cargarVistaInventario()
 {
 	system("cls");
-	imprimirLinea("        Vista Inventario");
+	IO::imprimirLinea("        Vista Inventario");
 }
 
 //? ---- Utilidades ----
-void imprimirLinea(string texto, string estilos, bool saltoLinea)
+void IO::imprimirLinea(string texto, string estilos, bool saltoLinea)
 {
 	cout << estilos << " " << texto << RESET_STYLE << COLORES_BASE;
 	if (saltoLinea)
@@ -377,19 +460,19 @@ void imprimirLinea(string texto, string estilos, bool saltoLinea)
 }
 
 /*Imprime un menu con las opciones pasadas como parametro*/
-void mostrarMenu(string texto, vector<string> opciones)
+void IO::mostrarMenu(string texto, vector<string> opciones)
 {
-	imprimirLinea(texto);
+	IO::imprimirLinea(texto);
 
 	// Imprime una linea por cada opcion del menu
 	for (int i = 0; i < opciones.size(); i++)
 	{
 		string opcion = to_string(i + 1) + ". " + opciones[i];
-		imprimirLinea(opcion);
+		IO::imprimirLinea(opcion);
 	}
 }
 
-string pedirDato(string texto, bool esSecreto)
+string IO::pedirDato(string texto, bool esSecreto)
 {
 	string dato = "";
 	imprimirLinea(texto, "", false);
