@@ -30,9 +30,6 @@ void imprimirLinea(string texto, string estilos = "", bool saltoLinea = true);
 string pedirDato(string texto, bool esSecreto = false);
 void calcularDiferenciaDeTiempo(int fechaAlta, int *diferenciaTiempo);
 
-void pedirDatosCliente();
-void pedirDatosProveedor();
-
 //& ---- Vistas
 void cargarVistaInicio();
 void cargarVistaLogin();
@@ -44,6 +41,148 @@ void cargarVistaCompras();
 void cargarVistaProveedores();
 void cargarVistaEmpleados();
 void cargarVistaInventario();
+
+//& ---- Structs ----
+struct Cliente
+{
+	int id,
+		tiempoComoCliente;
+	string nombre,
+		direccion,
+		telefono,
+		correo;
+	vector<Cliente> clientes;
+
+	static void listarClientes(vector<Cliente> clientes)
+	{
+		for (const Cliente &cliente : clientes)
+		{
+			string info = "ID: " + to_string(cliente.id) + " | Nombre: " + cliente.nombre + " | Tiempo como cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
+			imprimirLinea(info);
+		}
+	}
+
+	static void pedirDatos(bool agregarOtro = false)
+	{
+		Cliente nuevoCliente;
+
+		nuevoCliente.id = stoi(pedirDato("Ingresa el ID del cliente: "));
+		nuevoCliente.nombre = pedirDato("Ingresa el nombre del cliente: ");
+		nuevoCliente.direccion = pedirDato("Ingresa la direccion del cliente: ");
+		nuevoCliente.telefono = pedirDato("Ingresa el telefono del cliente: ");
+		nuevoCliente.correo = pedirDato("Ingresa el correo del cliente: ");
+		int fechaAlta;
+		while (true)
+		{
+			try
+			{
+				fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
+				if (fechaAlta >= 1900 && fechaAlta <= 2026)
+					break;
+				imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+			}
+			catch (std::invalid_argument)
+			{
+				imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+			}
+		}
+
+		calcularDiferenciaDeTiempo(fechaAlta, &nuevoCliente.tiempoComoCliente);
+
+		string mensaje = "\n El cliente " + nuevoCliente.nombre + " lleva " + to_string(nuevoCliente.tiempoComoCliente) + " anios como cliente.";
+		imprimirLinea(mensaje);
+
+		if (!agregarOtro)
+		{
+			string respuesta = pedirDato("\nDeseas agregar otro cliente? (s/n): ");
+			if (respuesta == "s" || respuesta == "S")
+				pedirDatos(true);
+		}
+	}
+};
+struct Proveedor
+{
+	int id,
+		tiempoComoProveedor;
+	string nombre,
+		direccion,
+		telefono,
+		correo;
+
+	static void listarProveedores(vector<Proveedor> proveedores)
+	{
+		for (const Proveedor &proveedor : proveedores)
+		{
+			string info = "ID: " + to_string(proveedor.id) + " | Nombre: " + proveedor.nombre + " | Tiempo como proveedor: " + to_string(proveedor.tiempoComoProveedor) + " anios";
+			imprimirLinea(info);
+		}
+	}
+
+	static void pedirDatos(bool agregarOtro = false)
+	{
+		int tiempoComoProveedor;
+
+		string id = pedirDato("Ingresa el ID del proveedor: ");
+		string nombre = pedirDato("Ingresa el nombre del proveedor: ");
+		string telefono = pedirDato("Ingresa el telefono del proveedor: ");
+		string edad = pedirDato("Ingresa la edad del proveedor: ");
+		string codigoPostal = pedirDato("Ingresa el codigo postal del proveedor: ");
+
+		int fechaAlta;
+		while (true)
+		{
+			try
+			{
+				fechaAlta = stoi(pedirDato("Ingresa el anio de alta del proveedor: "));
+				if (fechaAlta >= 1900 && fechaAlta <= 2026)
+					break;
+				imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+			}
+			catch (std::invalid_argument)
+			{
+				imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+			}
+		}
+
+		calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoProveedor);
+
+		string mensaje = "\n El proveedor " + nombre + " lleva " + to_string(tiempoComoProveedor) + " anios como proveedor.";
+		imprimirLinea(mensaje);
+
+		// Llamada recursiva si el usuario desea agregar otro proveedor
+		if (!agregarOtro)
+		{
+			string respuesta = pedirDato("\nDeseas agregar otro proveedor? (s/n): ");
+			if (respuesta == "s" || respuesta == "S")
+				pedirDatos(true);
+		}
+	}
+};
+struct Vehiculo
+{
+	int id;
+	string marca;
+	string modelo;
+	string color;
+	string anio;
+	string version;
+	string kilometraje;
+	string estado;
+	string aseguradora;
+	string precioCliente;
+};
+
+struct CostosVehiculo
+{
+	int idVehiculo,
+		precioCompra,
+		grua,
+		refacciones,
+		hojalateria,
+		manoDeObra,
+		otrosGastos,
+		costoTotal;
+};
 
 int main()
 {
@@ -195,7 +334,7 @@ void cargarVistaClientes()
 {
 	system("cls");
 	imprimirLinea("        Vista Clientes");
-	pedirDatosCliente();
+	Cliente::pedirDatos();
 }
 
 void cargarVistaVentas()
@@ -214,7 +353,7 @@ void cargarVistaProveedores()
 {
 	system("cls");
 	imprimirLinea("        Vista Proveedores");
-	pedirDatosProveedor();
+	Proveedor::pedirDatos();
 }
 
 void cargarVistaEmpleados()
@@ -291,68 +430,4 @@ void calcularDiferenciaDeTiempo(int fechaInicio, int *diferenciaTiempo)
 {
 	int anioActual = 2026;
 	*diferenciaTiempo = anioActual - fechaInicio;
-}
-
-void pedirDatosCliente()
-{
-	int tiempoComoCliente;
-
-	string id = pedirDato("Ingresa el ID del cliente: ");
-	string nombre = pedirDato("Ingresa el nombre del cliente: ");
-	string telefono = pedirDato("Ingresa el telefono del cliente: ");
-	string edad = pedirDato("Ingresa la edad del cliente: ");
-	string codigoPostal = pedirDato("Ingresa el codigo postal del cliente: ");
-
-	int fechaAlta;
-	while (true)
-	{
-		try
-		{
-			fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
-			if (fechaAlta >= 1900 && fechaAlta <= 2026)
-				break;
-			imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
-		}
-		catch (std::invalid_argument)
-		{
-			imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
-		}
-	}
-
-	calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoCliente);
-
-	string mensaje = "\n El cliente " + nombre + " lleva " + to_string(tiempoComoCliente) + " anios como cliente.";
-	imprimirLinea(mensaje);
-}
-
-void pedirDatosProveedor()
-{
-	int tiempoComoProveedor;
-
-	string id = pedirDato("Ingresa el ID del proveedor: ");
-	string nombre = pedirDato("Ingresa el nombre del proveedor: ");
-	string telefono = pedirDato("Ingresa el telefono del proveedor: ");
-	string edad = pedirDato("Ingresa la edad del proveedor: ");
-	string codigoPostal = pedirDato("Ingresa el codigo postal del proveedor: ");
-
-	int fechaAlta;
-	while (true)
-	{
-		try
-		{
-			fechaAlta = stoi(pedirDato("Ingresa el anio de alta del cliente: "));
-			if (fechaAlta >= 1900 && fechaAlta <= 2026)
-				break;
-			imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
-		}
-		catch (std::invalid_argument)
-		{
-			imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
-		}
-	}
-
-	calcularDiferenciaDeTiempo(fechaAlta, &tiempoComoProveedor);
-
-	string mensaje = "\n El proveedor " + nombre + " lleva " + to_string(tiempoComoProveedor) + " anios como proveedor.";
-	imprimirLinea(mensaje);
 }
