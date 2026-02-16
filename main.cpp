@@ -58,55 +58,8 @@ struct Cliente
 		correo;
 	static std::vector<Cliente> clientes;
 
-	static void listarClientes(vector<Cliente> clientes)
-	{
-		for (const Cliente &cliente : clientes)
-		{
-			string info = "ID: " + to_string(cliente.id) + " | Nombre: " + cliente.nombre + " | Tiempo como cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
-			IO::imprimirLinea(info);
-		}
-	}
-
-	static void pedirDatos(bool agregarOtro = false)
-	{
-		Cliente nuevoCliente;
-
-		nuevoCliente.id = stoi(IO::pedirDato("Ingresa el ID del cliente: "));
-		nuevoCliente.nombre = IO::pedirDato("Ingresa el nombre del cliente: ");
-		nuevoCliente.direccion = IO::pedirDato("Ingresa la direccion del cliente: ");
-		nuevoCliente.telefono = IO::pedirDato("Ingresa el telefono del cliente: ");
-		nuevoCliente.correo = IO::pedirDato("Ingresa el correo del cliente: ");
-		int fechaAlta;
-		while (true)
-		{
-			try
-			{
-				fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del cliente: "));
-				if (fechaAlta >= 1900 && fechaAlta <= 2026)
-					break;
-				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
-			}
-			catch (std::invalid_argument)
-			{
-				IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
-			}
-		}
-
-		calcularDiferenciaDeTiempo(fechaAlta, &nuevoCliente.tiempoComoCliente);
-
-		string mensaje = "\n El cliente " + nuevoCliente.nombre + " lleva " + to_string(nuevoCliente.tiempoComoCliente) + " anios como cliente.";
-		IO::imprimirLinea(mensaje);
-
-		Cliente::clientes.push_back(nuevoCliente);
-		IO::imprimirLinea("Cliente agregado exitosamente!", TEXTO_ITALIC);
-
-		if (!agregarOtro)
-		{
-			string respuesta = IO::pedirDato("\nDeseas agregar otro cliente? (s/n): ");
-			if (respuesta == "s" || respuesta == "S")
-				pedirDatos(true);
-		}
-	}
+	static void listarClientes();
+	static void agregarCliente();
 };
 
 struct Proveedor
@@ -119,57 +72,8 @@ struct Proveedor
 		correo;
 	static std::vector<Proveedor> proveedores;
 
-	static void listarProveedores(vector<Proveedor> proveedores)
-	{
-		for (const Proveedor &proveedor : proveedores)
-		{
-			string info = "ID: " + to_string(proveedor.id) + " | Nombre: " + proveedor.nombre + " | Tiempo como proveedor: " + to_string(proveedor.tiempoComoProveedor) + " anios";
-			IO::imprimirLinea(info);
-		}
-	}
-
-	static void pedirDatos(bool agregarOtro = false)
-	{
-		Proveedor nuevoProveedor;
-
-		nuevoProveedor.id = stoi(IO::pedirDato("Ingresa el ID del proveedor: "));
-		nuevoProveedor.nombre = IO::pedirDato("Ingresa el nombre del proveedor: ");
-		nuevoProveedor.direccion = IO::pedirDato("Ingresa la direccion del proveedor: ");
-		nuevoProveedor.telefono = IO::pedirDato("Ingresa el telefono del proveedor: ");
-		nuevoProveedor.correo = IO::pedirDato("Ingresa el correo del proveedor: ");
-
-		int fechaAlta;
-		while (true)
-		{
-			try
-			{
-				fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del proveedor: "));
-				if (fechaAlta >= 1900 && fechaAlta <= 2026)
-					break;
-				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
-			}
-			catch (std::invalid_argument)
-			{
-				IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
-			}
-		}
-
-		calcularDiferenciaDeTiempo(fechaAlta, &nuevoProveedor.tiempoComoProveedor);
-
-		string mensaje = "\n El proveedor " + nuevoProveedor.nombre + " lleva " + to_string(nuevoProveedor.tiempoComoProveedor) + " anios como proveedor.";
-		IO::imprimirLinea(mensaje);
-
-		Proveedor::proveedores.push_back(nuevoProveedor);
-		IO::imprimirLinea("Proveedor agregado exitosamente!", TEXTO_ITALIC);
-
-		// Aplicación de recursividad
-		if (!agregarOtro)
-		{
-			string respuesta = IO::pedirDato("\nDeseas agregar otro proveedor? (s/n): ");
-			if (respuesta == "s" || respuesta == "S")
-				pedirDatos(true);
-		}
-	}
+	static void listarProveedores();
+	static void agregarProveedor();
 };
 struct Vehiculo
 {
@@ -252,7 +156,7 @@ void Vista::login()
 	bool credencialesCorrectas = false;
 	string mensaje = "";
 
-	while (!credencialesCorrectas)
+	do
 	{
 		system("cls");
 
@@ -271,13 +175,13 @@ void Vista::login()
 			mensaje = "Credenciales incorrectas, intenta de nuevo";
 		else
 			credencialesCorrectas = true;
-	}
+	} while (!credencialesCorrectas);
 }
 
 void Vista::dashboard()
 {
 	//* Opciones del menu principal
-	vector<string> opciones = {
+	vector<string> opcionesMenu = {
 		"Clientes",
 		"Ventas",
 		"Compras",
@@ -290,10 +194,11 @@ void Vista::dashboard()
 	string mensaje;
 	bool salir = false;
 
-	while (!salir)
+	do
 	{
 		// Ciclo para mostrar el menu y obtener una opcion valida
-		while (true)
+		bool opcionValida = false;
+		do
 		{
 			system("cls");
 			IO::imprimirLinea("        Dashboard");
@@ -301,20 +206,20 @@ void Vista::dashboard()
 				? IO::imprimirLinea("")
 				: IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 
-			IO::mostrarMenu("Opciones disponibles", opciones);
+			IO::mostrarMenu("Opciones disponibles", opcionesMenu);
 			try
 			{
 				opcion = stoi(IO::pedirDato("Ingresa la opcion deseada: "));
-				if (opcion <= 0 || opcion > opciones.size())
+				if (opcion <= 0 || opcion > opcionesMenu.size())
 					throw invalid_argument("");
 
-				break;
+				opcionValida = true;
 			}
 			catch (const std::invalid_argument &e)
 			{
 				mensaje = "Opcion no valida\n";
 			}
-		}
+		} while (!opcionValida);
 
 		mensaje = ""; // Limpia el mensaje despues de una eleccion exitosa
 
@@ -354,59 +259,60 @@ void Vista::dashboard()
 			IO::imprimirLinea("Presiona ENTER para volver al dashboard...", "", false);
 			cin.get();
 		}
-	}
+	} while (!salir);
 }
 
 void Vista::clientes()
 {
-	vector<string> opciones = {"Listar clientes", "Agregar cliente", "Volver"};
+	vector<string> opcionesMenu = {"Listar clientes", "Agregar cliente", "Volver"};
 	int opcion;
 	string mensaje;
 	bool volver = false;
 
 	system("cls");
 
-	while (!volver)
+	do
 	{
-		while (true)
+		bool opcionValida = false;
+		do
 		{
 			system("cls");
 			IO::imprimirLinea("        Vista Clientes");
 			mensaje.empty() ? IO::imprimirLinea("") : IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
 
-			IO::mostrarMenu("Opciones disponibles", opciones);
+			IO::mostrarMenu("Opciones disponibles", opcionesMenu);
 			try
 			{
 				opcion = stoi(IO::pedirDato("Ingresa la opcion deseada: "));
-				if (opcion <= 0 || opcion > opciones.size())
+				if (opcion <= 0 || opcion > opcionesMenu.size())
 					throw invalid_argument("");
 
-				break;
+				opcionValida = true;
 			}
 			catch (const std::invalid_argument &e)
 			{
 				mensaje = "Opcion no valida";
 			}
-		}
+		} while (!opcionValida);
 
 		mensaje = "";
 
 		switch (opcion)
 		{
-		case 1: // Listar clientes
+		case 1: //? Listar clientes
 			system("cls");
 			IO::imprimirLinea("Lista de clientes:");
 			if (Cliente::clientes.empty())
 				IO::imprimirLinea("No hay clientes registrados.", TEXTO_ADVERTENCIA);
 			else
-				Cliente::listarClientes(Cliente::clientes);
+				Cliente::listarClientes();
 			break;
-		case 2: // Agregar cliente
+		case 2: //? Agregar cliente
 			system("cls");
 			IO::imprimirLinea("Agregar cliente:");
-			Cliente::pedirDatos();
+			Cliente::agregarCliente();
 			break;
-		case 3: // Volver
+		case 3: //? Volver
 			volver = true;
 			break;
 		default:
@@ -419,7 +325,7 @@ void Vista::clientes()
 			IO::imprimirLinea("Presiona ENTER para continuar...", "", false);
 			cin.get();
 		}
-	}
+	} while (!volver);
 }
 
 void Vista::ventas()
@@ -438,7 +344,7 @@ void Vista::proveedores()
 {
 	system("cls");
 	IO::imprimirLinea("        Vista Proveedores");
-	Proveedor::pedirDatos();
+	Proveedor::agregarProveedor();
 }
 
 void Vista::empleados()
@@ -515,4 +421,109 @@ void calcularDiferenciaDeTiempo(int fechaInicio, int *diferenciaTiempo)
 {
 	int anioActual = 2026;
 	*diferenciaTiempo = anioActual - fechaInicio;
+}
+
+//? ---- Clientes ----
+void Cliente::listarClientes()
+{
+	for (const Cliente &cliente : Cliente::clientes)
+	{
+		string info = "ID: " + to_string(cliente.id) + " | Nombre: " + cliente.nombre + " | Tiempo como cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
+		IO::imprimirLinea(info);
+	}
+}
+
+void Cliente::agregarCliente()
+{
+	Cliente nuevoCliente;
+
+	nuevoCliente.id = stoi(IO::pedirDato("Ingresa el ID del cliente: "));
+	nuevoCliente.nombre = IO::pedirDato("Ingresa el nombre del cliente: ");
+	nuevoCliente.direccion = IO::pedirDato("Ingresa la direccion del cliente: ");
+	nuevoCliente.telefono = IO::pedirDato("Ingresa el telefono del cliente: ");
+	nuevoCliente.correo = IO::pedirDato("Ingresa el correo del cliente: ");
+	int fechaAlta;
+	bool fechaValida = false;
+	do
+	{
+		try
+		{
+			fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del cliente: "));
+			if (fechaAlta >= 1900 && fechaAlta <= 2026)
+				fechaValida = true;
+			else
+				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+		}
+		catch (std::invalid_argument)
+		{
+			IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+		}
+	} while (!fechaValida);
+
+	calcularDiferenciaDeTiempo(fechaAlta, &nuevoCliente.tiempoComoCliente);
+
+	string mensaje = "\n El cliente " + nuevoCliente.nombre + " lleva " + to_string(nuevoCliente.tiempoComoCliente) + " anios como cliente.";
+	IO::imprimirLinea(mensaje);
+
+	Cliente::clientes.push_back(nuevoCliente);
+	IO::imprimirLinea("Cliente agregado exitosamente!", TEXTO_ITALIC);
+
+	string respuesta = IO::pedirDato("\nDeseas agregar otro cliente? (s/n): ");
+	if (respuesta == "s" || respuesta == "S")
+		agregarCliente();
+
+	return;
+}
+
+//? ---- Proveedores ----
+void Proveedor::listarProveedores()
+{
+	for (const Proveedor &proveedor : Proveedor::proveedores)
+	{
+		string info = "ID: " + to_string(proveedor.id) + " | Nombre: " + proveedor.nombre + " | Tiempo como proveedor: " + to_string(proveedor.tiempoComoProveedor) + " anios";
+		IO::imprimirLinea(info);
+	}
+}
+
+void Proveedor::agregarProveedor()
+{
+	Proveedor nuevoProveedor;
+
+	nuevoProveedor.id = stoi(IO::pedirDato("Ingresa el ID del proveedor: "));
+	nuevoProveedor.nombre = IO::pedirDato("Ingresa el nombre del proveedor: ");
+	nuevoProveedor.direccion = IO::pedirDato("Ingresa la direccion del proveedor: ");
+	nuevoProveedor.telefono = IO::pedirDato("Ingresa el telefono del proveedor: ");
+	nuevoProveedor.correo = IO::pedirDato("Ingresa el correo del proveedor: ");
+
+	int fechaAlta;
+	bool fechaValida = false;
+	do
+	{
+		try
+		{
+			fechaAlta = stoi(IO::pedirDato("Ingresa el anio de alta del proveedor: "));
+			if (fechaAlta >= 1900 && fechaAlta <= 2026)
+				fechaValida = true;
+			else
+				IO::imprimirLinea("Anio de alta invalido. Debe estar entre 1900 y 2026.", TEXTO_ADVERTENCIA);
+		}
+		catch (std::invalid_argument)
+		{
+			IO::imprimirLinea("Entrada invalida. Ingrese un numero.", TEXTO_ADVERTENCIA);
+		}
+	} while (!fechaValida);
+
+	calcularDiferenciaDeTiempo(fechaAlta, &nuevoProveedor.tiempoComoProveedor);
+
+	string mensaje = "\n El proveedor " + nuevoProveedor.nombre + " lleva " + to_string(nuevoProveedor.tiempoComoProveedor) + " anios como proveedor.";
+	IO::imprimirLinea(mensaje);
+
+	Proveedor::proveedores.push_back(nuevoProveedor);
+	IO::imprimirLinea("Proveedor agregado exitosamente!", TEXTO_ITALIC);
+
+	string respuesta = IO::pedirDato("\nDeseas agregar otro proveedor? (s/n): ");
+	if (respuesta == "s" || respuesta == "S")
+		agregarProveedor();
+
+	return;
 }
