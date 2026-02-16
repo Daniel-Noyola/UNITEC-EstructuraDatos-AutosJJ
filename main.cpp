@@ -342,9 +342,68 @@ void Vista::compras()
 
 void Vista::proveedores()
 {
+	vector<string> opcionesMenu = {"Listar proveedores", "Agregar proveedor", "Volver"};
+	int opcion;
+	string mensaje;
+	bool volver = false;
+
 	system("cls");
-	IO::imprimirLinea("        Vista Proveedores");
-	Proveedor::agregarProveedor();
+
+	do
+	{
+		bool opcionValida = false;
+		do
+		{
+			system("cls");
+			IO::imprimirLinea("        Vista Proveedores");
+			mensaje.empty() ? IO::imprimirLinea("") : IO::imprimirLinea(mensaje, TEXTO_ADVERTENCIA);
+
+			IO::mostrarMenu("Opciones disponibles", opcionesMenu);
+			try
+			{
+				opcion = stoi(IO::pedirDato("Ingresa la opcion deseada: "));
+				if (opcion <= 0 || opcion > opcionesMenu.size())
+					throw invalid_argument("");
+
+				opcionValida = true;
+			}
+			catch (const std::invalid_argument &e)
+			{
+				mensaje = "Opcion no valida";
+			}
+		} while (!opcionValida);
+
+		mensaje = "";
+
+		switch (opcion)
+		{
+		case 1: //? Listar proveedores
+			system("cls");
+			IO::imprimirLinea("Lista de proveedores:");
+			if (Proveedor::proveedores.empty())
+				IO::imprimirLinea("No hay proveedores registrados.", TEXTO_ADVERTENCIA);
+			else
+				Proveedor::listarProveedores();
+			break;
+		case 2: //? Agregar proveedor
+			system("cls");
+			IO::imprimirLinea("Agregar proveedor:");
+			Proveedor::agregarProveedor();
+			break;
+		case 3: //? Volver
+			volver = true;
+			break;
+		default:
+			IO::imprimirLinea("Opcion no encontrada");
+			break;
+		}
+
+		if (!volver)
+		{
+			IO::imprimirLinea("Presiona ENTER para continuar...", "", false);
+			cin.get();
+		}
+	} while (!volver);
 }
 
 void Vista::empleados()
