@@ -1,0 +1,12 @@
+# ninja log v6
+15	4049	7938303520893146	CMakeFiles/AutosJJ.dir/AutosJJ.cpp.obj	967424a0cbff6b69
+4524	5034	7938303565978105	AutosJJ.exe	e7f009c84020d9b3
+53	4524	7938303521263117	CMakeFiles/AutosJJ.dir/vistas/login.cpp.obj	91d2cc0243f7faa
+67	4450	7938303521403139	CMakeFiles/AutosJJ.dir/vistas/dashboard.cpp.obj	ba4026f7dffb0bd7
+13	42	7937625966339346	clean	5345ca6175c2c29c
+27	3996	7938303521013122	CMakeFiles/AutosJJ.dir/utilidades/IO.cpp.obj	4600109fb98a3be2
+41	4211	7938303521148145	CMakeFiles/AutosJJ.dir/vistas/inicio.cpp.obj	83ff3fc7c41ec5ca
+81	4192	7938303521548154	CMakeFiles/AutosJJ.dir/vistas/otros.cpp.obj	cba4aa96b48781ea
+106	4123	7938303521798118	CMakeFiles/AutosJJ.dir/vistas/clientes/clientes.cpp.obj	2beef8248e14b2ee
+93	4298	7938303521673132	CMakeFiles/AutosJJ.dir/vistas/clientes/listarClientes.cpp.obj	f4c7e7725bd264a3
+119	4265	7938303521933127	CMakeFiles/AutosJJ.dir/vistas/clientes/registrarClientes.cpp.obj	d406d19c4b453c99
