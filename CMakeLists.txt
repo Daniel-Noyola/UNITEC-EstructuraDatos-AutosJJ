@@ -20,16 +20,22 @@ add_executable (AutosJJ
 	"includes/vistas.h"
 	"utilidades/IO.h"
 	"utilidades/IO.cpp"
+	"utilidades/EditorCSV.h"
+	"utilidades/EditorCSV.cpp"
 	"vistas/inicio.cpp"
 	"vistas/login.cpp"
 	"vistas/dashboard.cpp"
 	"vistas/otros.cpp"
-	"vistas/clientes/listarClientes.cpp"
 	"vistas/clientes/clientes.cpp"
-	"vistas/clientes/registrarClientes.cpp")
+	"vistas/clientes/listarClientes.cpp"
+	"vistas/clientes/registrarClientes.cpp"
+	"modelos/Cliente.h") 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET AutosJJ PROPERTY CXX_STANDARD 20)
 endif()
+
+# Expone la raíz del proyecto como macro para que el código pueda construir rutas absolutas
+target_compile_definitions(AutosJJ PRIVATE PROJECT_ROOT="${CMAKE_SOURCE_DIR}/")
 
 # TODO: Agregue pruebas y destinos de instalación si es necesario.

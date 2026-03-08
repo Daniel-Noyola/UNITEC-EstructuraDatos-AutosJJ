@@ -51,6 +51,7 @@ build cmake_object_order_depends_target_AutosJJ: phony || .
 
 build CMakeFiles\AutosJJ.dir\AutosJJ.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\AutosJJ.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir
@@ -59,6 +60,16 @@ build CMakeFiles\AutosJJ.dir\AutosJJ.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_De
 
 build CMakeFiles\AutosJJ.dir\utilidades\IO.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\utilidades\IO.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = CMakeFiles\AutosJJ.dir
+  OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\utilidades
+  TARGET_COMPILE_PDB = CMakeFiles\AutosJJ.dir\
+  TARGET_PDB = AutosJJ.pdb
+
+build CMakeFiles\AutosJJ.dir\utilidades\EditorCSV.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\utilidades\EditorCSV.cpp || cmake_object_order_depends_target_AutosJJ
+  CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\utilidades
@@ -67,6 +78,7 @@ build CMakeFiles\AutosJJ.dir\utilidades\IO.cpp.obj: CXX_COMPILER__AutosJJ_unscan
 
 build CMakeFiles\AutosJJ.dir\vistas\inicio.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\inicio.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas
@@ -75,6 +87,7 @@ build CMakeFiles\AutosJJ.dir\vistas\inicio.cpp.obj: CXX_COMPILER__AutosJJ_unscan
 
 build CMakeFiles\AutosJJ.dir\vistas\login.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\login.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas
@@ -83,6 +96,7 @@ build CMakeFiles\AutosJJ.dir\vistas\login.cpp.obj: CXX_COMPILER__AutosJJ_unscann
 
 build CMakeFiles\AutosJJ.dir\vistas\dashboard.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\dashboard.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas
@@ -91,22 +105,25 @@ build CMakeFiles\AutosJJ.dir\vistas\dashboard.cpp.obj: CXX_COMPILER__AutosJJ_uns
 
 build CMakeFiles\AutosJJ.dir\vistas\otros.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\otros.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas
   TARGET_COMPILE_PDB = CMakeFiles\AutosJJ.dir\
   TARGET_PDB = AutosJJ.pdb
 
-build CMakeFiles\AutosJJ.dir\vistas\clientes\listarClientes.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\clientes\listarClientes.cpp || cmake_object_order_depends_target_AutosJJ
+build CMakeFiles\AutosJJ.dir\vistas\clientes\clientes.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\clientes\clientes.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas\clientes
   TARGET_COMPILE_PDB = CMakeFiles\AutosJJ.dir\
   TARGET_PDB = AutosJJ.pdb
 
-build CMakeFiles\AutosJJ.dir\vistas\clientes\clientes.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\clientes\clientes.cpp || cmake_object_order_depends_target_AutosJJ
+build CMakeFiles\AutosJJ.dir\vistas\clientes\listarClientes.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\clientes\listarClientes.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas\clientes
@@ -115,6 +132,7 @@ build CMakeFiles\AutosJJ.dir\vistas\clientes\clientes.cpp.obj: CXX_COMPILER__Aut
 
 build CMakeFiles\AutosJJ.dir\vistas\clientes\registrarClientes.cpp.obj: CXX_COMPILER__AutosJJ_unscanned_Debug C$:\Users\pepe_\Desktop\AutosJJ\vistas\clientes\registrarClientes.cpp || cmake_object_order_depends_target_AutosJJ
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT=\"C:/Users/pepe_/Desktop/AutosJJ/\"
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   OBJECT_DIR = CMakeFiles\AutosJJ.dir
   OBJECT_FILE_DIR = CMakeFiles\AutosJJ.dir\vistas\clientes
@@ -129,7 +147,7 @@ build CMakeFiles\AutosJJ.dir\vistas\clientes\registrarClientes.cpp.obj: CXX_COMP
 #############################################
 # Link the executable AutosJJ.exe
 
-build AutosJJ.exe: CXX_EXECUTABLE_LINKER__AutosJJ_Debug CMakeFiles\AutosJJ.dir\AutosJJ.cpp.obj CMakeFiles\AutosJJ.dir\utilidades\IO.cpp.obj CMakeFiles\AutosJJ.dir\vistas\inicio.cpp.obj CMakeFiles\AutosJJ.dir\vistas\login.cpp.obj CMakeFiles\AutosJJ.dir\vistas\dashboard.cpp.obj CMakeFiles\AutosJJ.dir\vistas\otros.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\listarClientes.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\clientes.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\registrarClientes.cpp.obj
+build AutosJJ.exe: CXX_EXECUTABLE_LINKER__AutosJJ_Debug CMakeFiles\AutosJJ.dir\AutosJJ.cpp.obj CMakeFiles\AutosJJ.dir\utilidades\IO.cpp.obj CMakeFiles\AutosJJ.dir\utilidades\EditorCSV.cpp.obj CMakeFiles\AutosJJ.dir\vistas\inicio.cpp.obj CMakeFiles\AutosJJ.dir\vistas\login.cpp.obj CMakeFiles\AutosJJ.dir\vistas\dashboard.cpp.obj CMakeFiles\AutosJJ.dir\vistas\otros.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\clientes.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\listarClientes.cpp.obj CMakeFiles\AutosJJ.dir\vistas\clientes\registrarClientes.cpp.obj
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console

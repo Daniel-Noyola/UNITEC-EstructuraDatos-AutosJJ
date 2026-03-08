@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
+
 #include <string>
 using namespace std;
 
@@ -22,3 +24,5 @@ const int ASCII_BACKSPACE = 8;
 //& ---- Login ----
 const string LOGIN_USER = "admin";
 const string LOGIN_PASSWORD = "123456";
+
+#endif // CONSTANTES_H

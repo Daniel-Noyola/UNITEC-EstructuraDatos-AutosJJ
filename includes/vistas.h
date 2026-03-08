@@ -1,4 +1,6 @@
-#pragma once
+#ifndef VISTAS_H
+#define VISTAS_H
+
 #include "./PantallaEnum.h"
 
 struct Vista
@@ -17,3 +19,5 @@ struct Vista
 	static void empleados();
 	static void inventario();
 };
+
+#endif // VISTAS_H

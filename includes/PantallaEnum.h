@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PANTALLAENUM_H
+#define PANTALLAENUM_H
 
 enum class Pantalla
 {
@@ -7,3 +8,5 @@ enum class Pantalla
 	Dashboard,
 	Salir
 };
+
+#endif // PANTALLAENUM_H
