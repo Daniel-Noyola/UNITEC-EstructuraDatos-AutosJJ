@@ -1,4 +1,5 @@
 ﻿#include "AutosJJ.h"
+#include "./includes/PantallaEnum.h"
 
 using namespace std;
 

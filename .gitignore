@@ -3,3 +3,7 @@
 *.layout
 .vs
 out/
+
+# Ignorar archivos dentro de data/, pero mantener la carpeta
+data/*
+!data/.gitkeep

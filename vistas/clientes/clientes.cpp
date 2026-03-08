@@ -10,7 +10,7 @@ void Vista::clientes()
 
 	while (true)
 	{
-		system("cls || clear");
+		IO::limpiarPantalla();
 		IO::imprimirLinea("=== Clientes ===");
 		IO::imprimirMenu("Opciones disponibles:", opcionesMenu);
 		int opcion = 0;
