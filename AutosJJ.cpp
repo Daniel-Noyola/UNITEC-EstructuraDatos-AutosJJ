@@ -9,7 +9,7 @@ int main()
 	cout << COLORES_BASE << LIMPIAR_PANTALLA;
 
 	
-	Pantalla pantalla = Pantalla::Inicio();
+	Pantalla pantalla = Pantalla::Inicio;
 
 	// Logica para mostrar la sección correspondiente
 	while (pantalla != Pantalla::Salir)

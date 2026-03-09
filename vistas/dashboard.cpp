@@ -6,6 +6,7 @@ Pantalla Vista::dashboard()
     //* Opciones del menu principal
     vector<string> opcionesMenu = {
         "Clientes",
+        "Vehiculos",
         "Ventas",
         "Compras",
         "Proveedores",
@@ -37,12 +38,13 @@ Pantalla Vista::dashboard()
         switch (opcion)
         {
         case 1: Vista::clientes();     break;
-        case 2: Vista::ventas();       break;
-        case 3: Vista::compras();      break;
-        case 4: Vista::proveedores();  break;
-        case 5: Vista::empleados();    break;
-        case 6: Vista::inventario();   break;
-        case 7: salir = true;          break;
+		case 2: Vista::vehiculos();    break;
+        case 3: Vista::ventas();       break;
+        case 4: Vista::compras();      break;
+        case 5: Vista::proveedores();  break;
+        case 6: Vista::empleados();    break;
+        case 7: Vista::inventario();   break;
+        case 8: salir = true;          break;
         default:
             mensaje = "Opcion no valida. Intente nuevamente.";
             break;

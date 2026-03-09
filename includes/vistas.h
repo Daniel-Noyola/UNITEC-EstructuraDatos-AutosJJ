@@ -15,6 +15,11 @@ struct Vista
 	static void buscarClienteId();
 	static void buscarClienteNombre();
 
+	static void vehiculos();
+	static void registrarVehiculo();
+	static void buscarVehiculoId();
+	static void buscarVehiculoMarca();
+
 	static void ventas();
 	static void compras();
 	static void proveedores();
