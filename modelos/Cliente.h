@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CLIENTE_H
+#define CLIENTE_H
+
 #include <string>
 using namespace std;
 
@@ -11,3 +13,5 @@ struct Cliente
 	string telefono;
 	string correo;
 };
+
+#endif
