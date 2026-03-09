@@ -14,6 +14,8 @@ const string COLOR_FONDO = "\033[48;2;0;112;192m";
 const string TEXTO_BLANCO = "\033[97m";
 const string TEXTO_NARANJA = "\033[38;5;214m";
 
+const string TEXTO_EXITO = "\033[92m";
+const string TEXTO_ERROR = "\033[91m";
 const string TEXTO_ADVERTENCIA = TEXTO_ITALIC + TEXTO_NARANJA;
 const string COLORES_BASE = COLOR_FONDO + TEXTO_BLANCO;
 const string LIMPIAR_PANTALLA = "\033[2J\033[H";

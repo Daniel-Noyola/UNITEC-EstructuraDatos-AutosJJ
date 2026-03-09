@@ -5,12 +5,16 @@
 
 struct ClienteServicio
 {
-	EditorCSV editor;
+	EditorCSV editorCSV;
+	static int ultimoId;
 
 	ClienteServicio();
 
 	/*Obtiene la lista de clientes registrados*/
 	vector<Cliente> obtenerClientes();
+
+	/*Agrega un nuevo cliente*/
+	Cliente agregarCliente(const string& nombre, const string& direccion, const string& telefono, const string& correo, const string& fechaRegistro);
 
 	
 };

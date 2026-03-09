@@ -17,7 +17,13 @@ void Vista::listarClientes()
 	{
 		for (const Cliente& cliente : clientes)
 		{
-			string textoCliente = "ID: " + to_string(cliente.id) + " | Nombre: " + cliente.nombre + " | Telefono: " + cliente.telefono + " | Email: " + cliente.correo;
+			string textoCliente = 
+				"ID: " 
+				+ to_string(cliente.id) 
+				+ " | Nombre: " + cliente.nombre 
+				+ " | Telefono: " + cliente.telefono 
+				+ " | Email: " + cliente.correo 
+				+ " | Tiempo Como Cliente: " + to_string(cliente.tiempoComoCliente) + "anios";
 			IO::imprimirLinea(textoCliente);
 		}
 	}

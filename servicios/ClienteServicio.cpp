@@ -1,16 +1,19 @@
 #include "ClienteServicio.h"
 #include "../modelos/Cliente.h"
+#include "../utilidades/Utils.h"
 #include <sstream>
 #include <vector>
 
-ClienteServicio::ClienteServicio() : editor("data/clientes.csv")
+int ClienteServicio::ultimoId = 1000;
+
+ClienteServicio::ClienteServicio() : editorCSV("data/clientes.csv")
 {
-	editor.crearArchivo("ID,TiempoComoCliente,Nombre,Direccion,Telefono,Correo");
+	editorCSV.crearArchivo("ID,TiempoComoCliente,Nombre,Direccion,Telefono,Correo");
 }
 
 vector<Cliente> ClienteServicio::obtenerClientes()
 {
-	vector<string> filas = editor.leerArchivo();
+	vector<string> filas = editorCSV.leerArchivo();
 	vector<Cliente> clientes;
 
 	for (const string& fila : filas)
@@ -36,4 +39,30 @@ vector<Cliente> ClienteServicio::obtenerClientes()
 		clientes.push_back(cliente);
 	}
 	return clientes;
+}
+
+Cliente ClienteServicio::agregarCliente(const string& nombre, const string& direccion, const string& telefono, const string& correo, const string& fechaRegistro)
+{
+	int diferenciaTiempo;
+	calcularDiferenciaDeTiempo(stoi(fechaRegistro), &diferenciaTiempo);
+
+	Cliente nuevoCliente;
+	nuevoCliente.id = ++ultimoId;
+	nuevoCliente.nombre = nombre;
+	nuevoCliente.direccion = direccion;
+	nuevoCliente.telefono = telefono;
+	nuevoCliente.correo = correo;
+	nuevoCliente.tiempoComoCliente = diferenciaTiempo;
+	
+	/*Guardar el nuevo cliente en el archivo CSV*/
+	string filaCliente = 
+		to_string(nuevoCliente.id) + "," +
+		to_string(nuevoCliente.tiempoComoCliente) + "," +
+		nuevoCliente.nombre + "," +
+		nuevoCliente.direccion + "," +
+		nuevoCliente.telefono + "," +
+		nuevoCliente.correo;
+	editorCSV.guardarEnArchivo(filaCliente);
+
+	return nuevoCliente;
 }
