@@ -4,6 +4,7 @@
 void Vista::registrarCliente()
 {
 	ClienteServicio clienteServicio;
+	Cliente nuevoCliente;
 	string nombre, direccion, telefono, correo, fechaRegistro;
 	
 	IO::limpiarPantalla();
@@ -14,16 +15,16 @@ void Vista::registrarCliente()
 	correo = IO::pedirDato("Ingresa su email: ");
 	fechaRegistro = IO::pedirDato("Ingresa el anio de registro: ");
 
-	Cliente nuevoCliente = clienteServicio.agregarCliente(nombre, direccion, telefono, correo, fechaRegistro);
-
-	if (!nuevoCliente.nombre.empty())
+	try
 	{
+		nuevoCliente = clienteServicio.agregarCliente(nombre, direccion, telefono, correo, fechaRegistro);
 		IO::imprimirLinea("Cliente registrado exitosamente con ID: " + to_string(nuevoCliente.id), TEXTO_EXITO);
 	}
-	else
+	catch (const exception& e)
 	{
-		IO::imprimirLinea("Error al registrar el cliente. Por favor, intenta nuevamente.", TEXTO_ERROR);
+		IO::imprimirLinea("Error al registrar el cliente: " + string(e.what()), TEXTO_ERROR);
 	}
+
 
 	string opcion = IO::pedirDato("Deseas registrar otro cliente? (s/n): ");
 	if (opcion == "s" || opcion == "S")

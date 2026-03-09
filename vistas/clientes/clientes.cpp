@@ -5,6 +5,8 @@ void Vista::clientes()
 	vector<string> opcionesMenu = {
 		"Listar Clientes",
 		"Registrar Cliente",
+		"Buscar Cliente (id)",
+		"Buscar Cliente (nombre)",
 		"Volver al Dashboard"
 	};
 
@@ -26,7 +28,9 @@ void Vista::clientes()
 		{
 		case 1: Vista::listarClientes(); break;
 		case 2: Vista::registrarCliente(); break;
-		case 3: return; break;
+		case 3: Vista::buscarClienteId(); break;
+		case 4: Vista::buscarClienteNombre(); break;
+		case 5: return; break;
 		default:
 			IO::imprimirLinea("Opcion no valida. Intente nuevamente.", TEXTO_ADVERTENCIA);
 			break;

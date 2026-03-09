@@ -12,6 +12,8 @@ struct Vista
 	static void clientes();
 	static void registrarCliente();
 	static void listarClientes();
+	static void buscarClienteId();
+	static void buscarClienteNombre();
 
 	static void ventas();
 	static void compras();

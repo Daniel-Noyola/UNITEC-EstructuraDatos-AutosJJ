@@ -9,6 +9,12 @@ int ClienteServicio::ultimoId = 1000;
 ClienteServicio::ClienteServicio() : editorCSV("data/clientes.csv")
 {
 	editorCSV.crearArchivo("ID,TiempoComoCliente,Nombre,Direccion,Telefono,Correo");
+
+	for (const Cliente& cliente : obtenerClientes())
+	{
+		if (cliente.id > ultimoId)
+			ultimoId = cliente.id;
+	}
 }
 
 vector<Cliente> ClienteServicio::obtenerClientes()
@@ -44,7 +50,14 @@ vector<Cliente> ClienteServicio::obtenerClientes()
 Cliente ClienteServicio::agregarCliente(const string& nombre, const string& direccion, const string& telefono, const string& correo, const string& fechaRegistro)
 {
 	int diferenciaTiempo;
-	calcularDiferenciaDeTiempo(stoi(fechaRegistro), &diferenciaTiempo);
+	try
+	{
+		calcularDiferenciaDeTiempo(stoi(fechaRegistro), &diferenciaTiempo);
+	}
+	catch (const invalid_argument&)
+	{
+		throw invalid_argument("El anio de registro debe ser un numero valido.");
+	}
 
 	Cliente nuevoCliente;
 	nuevoCliente.id = ++ultimoId;
@@ -65,4 +78,26 @@ Cliente ClienteServicio::agregarCliente(const string& nombre, const string& dire
 	editorCSV.guardarEnArchivo(filaCliente);
 
 	return nuevoCliente;
+}
+
+Cliente ClienteServicio::obtenerClientePorId(int id)
+{
+	vector<Cliente> clientes = obtenerClientes();
+	for (const Cliente& cliente : clientes)
+	{
+		if (cliente.id == id)
+			return cliente;
+	}
+	throw invalid_argument("No se encontro un cliente con el ID especificado.");
+}
+
+Cliente ClienteServicio::obtenerClientePorNombre(const string& nombre)
+{
+	vector<Cliente> clientes = obtenerClientes();
+	for (const Cliente& cliente : clientes)
+	{
+		if (cliente.nombre == nombre)
+			return cliente;
+	}
+	throw invalid_argument("No se encontro un cliente con el nombre especificado.");
 }

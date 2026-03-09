@@ -23,7 +23,7 @@ void Vista::listarClientes()
 				+ " | Nombre: " + cliente.nombre 
 				+ " | Telefono: " + cliente.telefono 
 				+ " | Email: " + cliente.correo 
-				+ " | Tiempo Como Cliente: " + to_string(cliente.tiempoComoCliente) + "anios";
+				+ " | Tiempo Como Cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
 			IO::imprimirLinea(textoCliente);
 		}
 	}
