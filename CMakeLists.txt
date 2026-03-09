@@ -29,7 +29,7 @@ add_executable (AutosJJ
 	"vistas/clientes/clientes.cpp"
 	"vistas/clientes/listarClientes.cpp"
 	"vistas/clientes/registrarClientes.cpp"
-	"modelos/Cliente.h" "servicios/ClienteServicio.h" "servicios/ClienteServicio.cpp" "utilidades/Utils.h" "utilidades/Utils.cpp" "vistas/clientes/buscarClienteId.cpp" "vistas/clientes/buscarClienteNombre.cpp") 
+	"modelos/Cliente.h" "servicios/ClienteServicio.h" "servicios/ClienteServicio.cpp" "utilidades/Utils.h" "utilidades/Utils.cpp" "vistas/clientes/buscarClienteId.cpp" "vistas/clientes/buscarClienteNombre.cpp" "modelos/Vehiculo.h" "modelos/CostosVehiculo.h" "servicios/VehiculoServicio.h" "servicios/VehiculoServicio.cpp") 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET AutosJJ PROPERTY CXX_STANDARD 20)
