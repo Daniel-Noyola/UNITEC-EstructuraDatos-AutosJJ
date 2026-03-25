@@ -4,9 +4,9 @@
 
 int ClienteServicio::ultimoId = 1000;
 
-ClienteServicio::ClienteServicio() : editorCSV("data/clientes.csv")
+ClienteServicio::ClienteServicio() : editorCSV("data/clientes.csv", "ID,TiempoComoCliente,Nombre,Direccion,Telefono,Correo")
 {
-	editorCSV.crearArchivo("ID,TiempoComoCliente,Nombre,Direccion,Telefono,Correo");
+	editorCSV.crearArchivo();
 
 	for (const Cliente& cliente : obtenerClientes())
 	{
@@ -98,4 +98,41 @@ Cliente ClienteServicio::obtenerClientePorNombre(const string& nombre)
 			return cliente;
 	}
 	throw invalid_argument("No se encontro un cliente con el nombre especificado.");
+}
+
+Cliente ClienteServicio::eliminarCliente(int id)
+{
+	vector<Cliente> clientes = obtenerClientes();
+	Cliente clienteEliminado;
+	bool encontrado = false;
+	for (const Cliente& cliente : clientes)
+	{
+		if (cliente.id == id)
+		{
+			clienteEliminado = cliente;
+			encontrado = true;
+			break;
+		}
+	}
+
+	if (!encontrado)
+		throw invalid_argument("No se encontro un cliente con el ID especificado.");
+
+	vector<string> filasActualizadas;
+	for (const Cliente& cliente : clientes)
+	{
+		if (cliente.id != id)
+		{
+			string filaCliente = 
+				to_string(cliente.id) + "," +
+				to_string(cliente.tiempoComoCliente) + "," +
+				cliente.nombre + "," +
+				cliente.direccion + "," +
+				cliente.telefono + "," +
+				cliente.correo;
+			filasActualizadas.push_back(filaCliente);
+		}
+	}
+	editorCSV.reescribirArchivo(filasActualizadas);
+	return clienteEliminado;
 }

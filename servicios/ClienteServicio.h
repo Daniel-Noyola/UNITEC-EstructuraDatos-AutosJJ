@@ -22,7 +22,8 @@ struct ClienteServicio
 	/*Obtiene un cliente por su nombre (busqueda exacta)*/
 	Cliente obtenerClientePorNombre(const string& nombre);
 
-	
+	/*Elimina un cliente por su ID y devuelve el cliente eliminado*/
+	Cliente eliminarCliente(int id);
 };
 
 #endif // CLIENTESERVICIO_H

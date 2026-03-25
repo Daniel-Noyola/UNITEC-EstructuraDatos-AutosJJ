@@ -3,9 +3,9 @@
 
 int VehiculoServicio::ultimoId = 100;
 
-VehiculoServicio::VehiculoServicio() : editorCSV("data/vehiculos.csv")
+VehiculoServicio::VehiculoServicio() : editorCSV("data/vehiculos.csv", "id,anio,descripcion,marca,modelo,color,version,kilometraje,estado,aseguradora,precioCliente")
 {
-    editorCSV.crearArchivo("id,anio,descripcion,marca,modelo,color,version,kilometraje,estado,aseguradora,precioCliente");
+    editorCSV.crearArchivo();
     for(const Vehiculo& vehiculo: obtenerVehiculos())
     {
         if(vehiculo.id > ultimoId)

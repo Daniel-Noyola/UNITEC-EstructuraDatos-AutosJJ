@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iomanip>
 
-EditorCSV::EditorCSV(string _nombreArchivo) : nombreArchivo(string(PROJECT_ROOT) + _nombreArchivo)
+EditorCSV::EditorCSV(string _nombreArchivo, string _encabezados) : nombreArchivo(string(PROJECT_ROOT) + _nombreArchivo), encabezados(_encabezados)
 {}
 
 bool EditorCSV::archivoExiste() const
@@ -14,7 +14,7 @@ bool EditorCSV::archivoExiste() const
 	return archivo.good();
 }
 
-void EditorCSV::crearArchivo(const string& encabezados)
+void EditorCSV::crearArchivo()
 {
 	if(!archivoExiste())
 	{
@@ -54,4 +54,20 @@ vector<string> EditorCSV::leerArchivo() const
 		archivo.close();
 	}
 	return filas;
+}
+
+void EditorCSV::reescribirArchivo(const vector<string>& filas)
+{
+	ofstream archivo(nombreArchivo);
+	if (archivo.is_open())
+	{
+		archivo << encabezados << endl; // Escribir los encabezados
+		archivo << fixed << setprecision(2);
+
+		for (const string& fila : filas)
+		{
+			archivo << fila << endl; // Escribir cada fila de datos
+		}
+		archivo.close();
+	}
 }
