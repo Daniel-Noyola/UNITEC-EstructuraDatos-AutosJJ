@@ -7,6 +7,7 @@ void Vista::clientes()
 		"Registrar Cliente",
 		"Buscar Cliente (id)",
 		"Buscar Cliente (nombre)",
+		"Eliminar Cliente (id)",
 		"Volver al Dashboard"
 	};
 
@@ -30,7 +31,8 @@ void Vista::clientes()
 		case 2: Vista::registrarCliente(); break;
 		case 3: Vista::buscarClienteId(); break;
 		case 4: Vista::buscarClienteNombre(); break;
-		case 5: return; break;
+		case 5: Vista::eliminarClienteId(); break;
+		case 6: return; break;
 		default:
 			IO::imprimirLinea("Opcion no valida. Intente nuevamente.", TEXTO_ADVERTENCIA);
 			break;
