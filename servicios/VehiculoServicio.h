@@ -2,6 +2,7 @@
 #define VEHICULOSERVICIO_H
 #include "../utilidades/EditorCSV.h"
 #include "../modelos/Vehiculo.h"
+#include <list>
 
 struct VehiculoServicio
 {
@@ -10,7 +11,7 @@ struct VehiculoServicio
 	VehiculoServicio();
 
 	/*Obtiene la lista de vehículos registrados*/
-	vector<Vehiculo> obtenerVehiculos();
+	list<Vehiculo> obtenerVehiculos();
 
 	/*Agrega un nuevo vehículo*/
 	Vehiculo agregarVehiculo(int anio, const string& descripcion, const string& marca, const string& modelo, const string& color, const string& version, const string& kilometraje, const string& estado, const string& aseguradora, const string& precioCliente);
@@ -18,7 +19,10 @@ struct VehiculoServicio
 	/*Obtiene un vehículo por su ID*/
 	Vehiculo obtenerVehiculoPorId(int id);
 
-	vector<Vehiculo> obtenerVehiculosPorMarca(const string& marca);
+	list<Vehiculo> obtenerVehiculosPorMarca(const string& marca);
+
+	/*Ordena la lista de vehículos por ID usando bubble sort*/
+	static void ordenarVehiculos(list<Vehiculo>& vehiculos);
 };
 
 #endif // VEHICULOSERVICIO_H

@@ -15,10 +15,10 @@ ClienteServicio::ClienteServicio() : editorCSV("data/clientes.csv", "ID,TiempoCo
 	}
 }
 
-vector<Cliente> ClienteServicio::obtenerClientes()
+list<Cliente> ClienteServicio::obtenerClientes()
 {
 	vector<string> filas = editorCSV.leerArchivo();
-	vector<Cliente> clientes;
+	list<Cliente> clientes;
 
 	for (const string& fila : filas)
 	{
@@ -42,6 +42,7 @@ vector<Cliente> ClienteServicio::obtenerClientes()
 		}
 		clientes.push_back(cliente);
 	}
+	ordenarClientes(clientes);
 	return clientes;
 }
 
@@ -80,7 +81,7 @@ Cliente ClienteServicio::agregarCliente(const string& nombre, const string& dire
 
 Cliente ClienteServicio::obtenerClientePorId(int id)
 {
-	vector<Cliente> clientes = obtenerClientes();
+	list<Cliente> clientes = obtenerClientes();
 	for (const Cliente& cliente : clientes)
 	{
 		if (cliente.id == id)
@@ -91,7 +92,7 @@ Cliente ClienteServicio::obtenerClientePorId(int id)
 
 Cliente ClienteServicio::obtenerClientePorNombre(const string& nombre)
 {
-	vector<Cliente> clientes = obtenerClientes();
+	list<Cliente> clientes = obtenerClientes();
 	for (const Cliente& cliente : clientes)
 	{
 		if (cliente.nombre == nombre)
@@ -102,7 +103,7 @@ Cliente ClienteServicio::obtenerClientePorNombre(const string& nombre)
 
 Cliente ClienteServicio::eliminarCliente(int id)
 {
-	vector<Cliente> clientes = obtenerClientes();
+	list<Cliente> clientes = obtenerClientes();
 	Cliente clienteEliminado;
 	bool encontrado = false;
 	for (const Cliente& cliente : clientes)
@@ -135,4 +136,25 @@ Cliente ClienteServicio::eliminarCliente(int id)
 	}
 	editorCSV.reescribirArchivo(filasActualizadas);
 	return clienteEliminado;
+}
+
+void ClienteServicio::ordenarClientes(list<Cliente>& clientes)
+{
+	bool intercambio;
+	do
+	{
+		intercambio = false;
+		auto it = clientes.begin();
+		auto siguiente = next(it);
+		while (siguiente != clientes.end())
+		{
+			if (it->id > siguiente->id)
+			{
+				swap(*it, *siguiente);
+				intercambio = true;
+			}
+			++it;
+			++siguiente;
+		}
+	} while (intercambio);
 }

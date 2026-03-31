@@ -15,10 +15,10 @@ VehiculoServicio::VehiculoServicio() : editorCSV("data/vehiculos.csv", "id,anio,
     }
 }
 
-vector<Vehiculo> VehiculoServicio::obtenerVehiculos()
+list<Vehiculo> VehiculoServicio::obtenerVehiculos()
 {
     vector<string> filas = editorCSV.leerArchivo();
-    vector<Vehiculo> vehiculos;
+    list<Vehiculo> vehiculos;
 
     for(const string& fila: filas)
     {
@@ -47,6 +47,7 @@ vector<Vehiculo> VehiculoServicio::obtenerVehiculos()
         }
         vehiculos.push_back(vehiculo);
     }
+    ordenarVehiculos(vehiculos);
     return vehiculos;
 }
 
@@ -84,7 +85,7 @@ Vehiculo VehiculoServicio::agregarVehiculo(int anio, const string& descripcion, 
 
 Vehiculo VehiculoServicio::obtenerVehiculoPorId(int id)
 {
-    vector<Vehiculo> vehiculos = obtenerVehiculos();
+    list<Vehiculo> vehiculos = obtenerVehiculos();
     for(const Vehiculo& vehiculo: vehiculos)
     {
         if(vehiculo.id == id)
@@ -93,14 +94,36 @@ Vehiculo VehiculoServicio::obtenerVehiculoPorId(int id)
     throw invalid_argument("No se encontro un vehiculo con el ID especificado.");
 }
 
-vector<Vehiculo> VehiculoServicio::obtenerVehiculosPorMarca(const string& marca)
+list<Vehiculo> VehiculoServicio::obtenerVehiculosPorMarca(const string& marca)
 {
-    vector<Vehiculo> vehiculos = obtenerVehiculos();
-    vector<Vehiculo> vehiculosPorMarca;
+    list<Vehiculo> vehiculos = obtenerVehiculos();
+    list<Vehiculo> vehiculosPorMarca;
     for(const Vehiculo& vehiculo: vehiculos)
     {
         if(vehiculo.marca == marca)
             vehiculosPorMarca.push_back(vehiculo);
     }
+    ordenarVehiculos(vehiculosPorMarca);
     return vehiculosPorMarca;
+}
+
+void VehiculoServicio::ordenarVehiculos(list<Vehiculo>& vehiculos)
+{
+    bool intercambio;
+    do
+    {
+        intercambio = false;
+        auto it = vehiculos.begin();
+        auto siguiente = next(it);
+        while (siguiente != vehiculos.end())
+        {
+            if (it->id > siguiente->id)
+            {
+                swap(*it, *siguiente);
+                intercambio = true;
+            }
+            ++it;
+            ++siguiente;
+        }
+    } while (intercambio);
 }

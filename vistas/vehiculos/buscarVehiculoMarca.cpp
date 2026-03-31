@@ -7,7 +7,7 @@ void Vista::buscarVehiculoMarca()
 	IO::limpiarPantalla();
 	IO::imprimirLinea("=== Buscar Vehiculo por Marca ===");
 	string marca = IO::pedirDato("Ingrese la marca del vehiculo: ");
-	vector<Vehiculo> vehiculosEncontrados = vehiculoServicio.obtenerVehiculosPorMarca(marca);
+	list<Vehiculo> vehiculosEncontrados = vehiculoServicio.obtenerVehiculosPorMarca(marca);
 	if (vehiculosEncontrados.empty())
 	{
 		IO::imprimirLinea("No se encontraron vehiculos con la marca: " + marca, TEXTO_ERROR);

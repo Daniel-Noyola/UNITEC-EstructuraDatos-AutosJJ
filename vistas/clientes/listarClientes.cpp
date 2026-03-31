@@ -4,7 +4,7 @@
 void Vista::listarClientes()
 {
 	ClienteServicio clienteServicio;
-	vector<Cliente> clientes = clienteServicio.obtenerClientes();
+	list<Cliente> clientes = clienteServicio.obtenerClientes();
 
 	IO::limpiarPantalla();
 	IO::imprimirLinea("=== Clientes Registrados ===");
