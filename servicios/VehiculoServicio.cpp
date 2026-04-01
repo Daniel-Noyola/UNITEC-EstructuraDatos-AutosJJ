@@ -51,36 +51,47 @@ list<Vehiculo> VehiculoServicio::obtenerVehiculos()
     return vehiculos;
 }
 
-Vehiculo VehiculoServicio::agregarVehiculo(int anio, const string& descripcion, const string& marca, const string& modelo, const string& color, const string& version, const string& kilometraje, const string& estado, const string& aseguradora, const string& precioCliente)
+void VehiculoServicio::validarVehiculo(const Vehiculo& vehiculo)
 {
-    Vehiculo nuevoVehiculo;
-    nuevoVehiculo.id = ++ultimoId;
-    nuevoVehiculo.anio = anio;
-    nuevoVehiculo.descripcion = descripcion;
-    nuevoVehiculo.marca = marca;
-    nuevoVehiculo.modelo = modelo;
-    nuevoVehiculo.color = color;
-    nuevoVehiculo.version = version;
-    nuevoVehiculo.kilometraje = kilometraje;
-    nuevoVehiculo.estado = estado;
-    nuevoVehiculo.aseguradora = aseguradora;
-    nuevoVehiculo.precioCliente = stof(precioCliente);
+    if(vehiculo.anio < 1886)
+        throw invalid_argument("El anio del vehiculo no es valido.");
+    if(vehiculo.descripcion.empty())
+        throw invalid_argument("La descripcion no puede estar vacia.");
+    if(vehiculo.marca.empty())
+        throw invalid_argument("La marca no puede estar vacia.");
+    if(vehiculo.modelo.empty())
+        throw invalid_argument("El modelo no puede estar vacio.");
+    if(vehiculo.color.empty())
+        throw invalid_argument("El color no puede estar vacio.");
+    if(vehiculo.kilometraje.empty())
+        throw invalid_argument("El kilometraje no puede estar vacio.");
+    if(vehiculo.estado.empty() || (vehiculo.estado != "nuevo" && vehiculo.estado != "usado" && vehiculo.estado != "Nuevo" && vehiculo.estado != "Usado"))
+        throw invalid_argument("El estado debe ser 'nuevo' o 'usado'.");
+    if(vehiculo.precioCliente <= 0)
+        throw invalid_argument("El precio del cliente debe ser mayor a 0.");
+}
+
+Vehiculo VehiculoServicio::agregarVehiculo(Vehiculo vehiculo)
+{
+    validarVehiculo(vehiculo);
+
+    vehiculo.id = ++ultimoId;
 
     string filaVehiculo = 
-        to_string(nuevoVehiculo.id) + "," +
-        to_string(nuevoVehiculo.anio) + "," +
-        nuevoVehiculo.descripcion + "," +
-        nuevoVehiculo.marca + "," +
-        nuevoVehiculo.modelo + "," +
-        nuevoVehiculo.color + "," +
-        nuevoVehiculo.version + "," +
-        nuevoVehiculo.kilometraje + "," +
-        nuevoVehiculo.estado + "," +
-        nuevoVehiculo.aseguradora + "," +
-        to_string(nuevoVehiculo.precioCliente);
+        to_string(vehiculo.id) + "," +
+        to_string(vehiculo.anio) + "," +
+        vehiculo.descripcion + "," +
+        vehiculo.marca + "," +
+        vehiculo.modelo + "," +
+        vehiculo.color + "," +
+        vehiculo.version + "," +
+        vehiculo.kilometraje + "," +
+        vehiculo.estado + "," +
+        vehiculo.aseguradora + "," +
+        to_string(vehiculo.precioCliente);
     editorCSV.guardarEnArchivo(filaVehiculo);
 
-    return nuevoVehiculo;
+    return vehiculo;
 }
 
 Vehiculo VehiculoServicio::obtenerVehiculoPorId(int id)

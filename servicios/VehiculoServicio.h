@@ -13,8 +13,11 @@ struct VehiculoServicio
 	/*Obtiene la lista de vehículos registrados*/
 	list<Vehiculo> obtenerVehiculos();
 
+	/*Valida la información de un vehículo antes de guardarlo*/
+	void validarVehiculo(const Vehiculo& vehiculo);
+
 	/*Agrega un nuevo vehículo*/
-	Vehiculo agregarVehiculo(int anio, const string& descripcion, const string& marca, const string& modelo, const string& color, const string& version, const string& kilometraje, const string& estado, const string& aseguradora, const string& precioCliente);
+	Vehiculo agregarVehiculo(Vehiculo vehiculo);
 
 	/*Obtiene un vehículo por su ID*/
 	Vehiculo obtenerVehiculoPorId(int id);

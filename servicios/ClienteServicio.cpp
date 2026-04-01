@@ -1,5 +1,4 @@
 #include "ClienteServicio.h"
-#include "../utilidades/Utils.h"
 #include <sstream>
 
 int ClienteServicio::ultimoId = 1000;
@@ -46,37 +45,37 @@ list<Cliente> ClienteServicio::obtenerClientes()
 	return clientes;
 }
 
-Cliente ClienteServicio::agregarCliente(const string& nombre, const string& direccion, const string& telefono, const string& correo, const string& fechaRegistro)
+void ClienteServicio::validarCliente(const Cliente& cliente)
 {
-	int diferenciaTiempo;
-	try
-	{
-		calcularDiferenciaDeTiempo(stoi(fechaRegistro), &diferenciaTiempo);
-	}
-	catch (const invalid_argument&)
-	{
-		throw invalid_argument("El anio de registro debe ser un numero valido.");
-	}
+	if (cliente.nombre.empty())
+		throw invalid_argument("El nombre no puede estar vacio.");
+	if (cliente.direccion.empty())
+		throw invalid_argument("La direccion no puede estar vacia.");
+	if (cliente.telefono.empty())
+		throw invalid_argument("El telefono no puede estar vacio.");
+	if (cliente.correo.empty())
+		throw invalid_argument("El correo no puede estar vacio.");
+	if (cliente.tiempoComoCliente < 0)
+		throw invalid_argument("El anio de registro no es valido.");
+}
 
-	Cliente nuevoCliente;
-	nuevoCliente.id = ++ultimoId;
-	nuevoCliente.nombre = nombre;
-	nuevoCliente.direccion = direccion;
-	nuevoCliente.telefono = telefono;
-	nuevoCliente.correo = correo;
-	nuevoCliente.tiempoComoCliente = diferenciaTiempo;
-	
+Cliente ClienteServicio::agregarCliente(Cliente cliente)
+{
+	validarCliente(cliente);
+
+	cliente.id = ++ultimoId;
+
 	/*Guardar el nuevo cliente en el archivo CSV*/
 	string filaCliente = 
-		to_string(nuevoCliente.id) + "," +
-		to_string(nuevoCliente.tiempoComoCliente) + "," +
-		nuevoCliente.nombre + "," +
-		nuevoCliente.direccion + "," +
-		nuevoCliente.telefono + "," +
-		nuevoCliente.correo;
+		to_string(cliente.id) + "," +
+		to_string(cliente.tiempoComoCliente) + "," +
+		cliente.nombre + "," +
+		cliente.direccion + "," +
+		cliente.telefono + "," +
+		cliente.correo;
 	editorCSV.guardarEnArchivo(filaCliente);
 
-	return nuevoCliente;
+	return cliente;
 }
 
 Cliente ClienteServicio::obtenerClientePorId(int id)

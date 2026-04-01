@@ -14,8 +14,11 @@ struct ClienteServicio
 	/*Obtiene la lista de clientes registrados*/
 	list<Cliente> obtenerClientes();
 
+	/*Valida los campos de un cliente antes de guardarlo*/
+	static void validarCliente(const Cliente& cliente);
+
 	/*Agrega un nuevo cliente*/
-	Cliente agregarCliente(const string& nombre, const string& direccion, const string& telefono, const string& correo, const string& fechaRegistro);
+	Cliente agregarCliente(Cliente cliente);
 
 	/*Obtiene un cliente por su ID*/
 	Cliente obtenerClientePorId(int id);
