@@ -1,9 +1,10 @@
 #include "VehiculoServicio.h"
 #include <sstream>
+#include <vector>
 
 int VehiculoServicio::ultimoId = 100;
 
-VehiculoServicio::VehiculoServicio() : editorCSV("data/vehiculos.csv", "id,anio,descripcion,marca,modelo,color,version,kilometraje,estado,aseguradora,precioCliente")
+VehiculoServicio::VehiculoServicio() : editorCSV("data/vehiculos.csv", "id,anio,descripcion,marca,modelo,color,version,kilometraje,estado,aseguradora,precioCliente,precioAdquisicion,reparado")
 {
     editorCSV.crearArchivo();
     for(const Vehiculo& vehiculo: obtenerVehiculos())
@@ -23,6 +24,8 @@ list<Vehiculo> VehiculoServicio::obtenerVehiculos()
     for(const string& fila: filas)
     {
         Vehiculo vehiculo;
+        vehiculo.precioAdquisicion = 0.0;
+        vehiculo.reparado = false;
         string campo;
         stringstream ss(fila);
         int indice = 0;
@@ -31,17 +34,19 @@ list<Vehiculo> VehiculoServicio::obtenerVehiculos()
         {
             switch(indice)
             {
-                case 0: vehiculo.id = stoi(campo); break;
-                case 1: vehiculo.anio = stoi(campo); break;
-                case 2: vehiculo.descripcion = campo; break;
-                case 3: vehiculo.marca = campo; break;
-                case 4: vehiculo.modelo = campo; break;
-                case 5: vehiculo.color = campo; break;
-                case 6: vehiculo.version = campo; break;
-                case 7: vehiculo.kilometraje = campo; break;
-                case 8: vehiculo.estado = campo; break;
-                case 9: vehiculo.aseguradora = campo; break;
-                case 10: vehiculo.precioCliente = stof(campo); break;
+                case 0:  vehiculo.id                = stoi(campo);         break;
+                case 1:  vehiculo.anio              = stoi(campo);         break;
+                case 2:  vehiculo.descripcion       = campo;               break;
+                case 3:  vehiculo.marca             = campo;               break;
+                case 4:  vehiculo.modelo            = campo;               break;
+                case 5:  vehiculo.color             = campo;               break;
+                case 6:  vehiculo.version           = campo;               break;
+                case 7:  vehiculo.kilometraje       = campo;               break;
+                case 8:  vehiculo.estado            = campo;               break;
+                case 9:  vehiculo.aseguradora       = campo;               break;
+                case 10: vehiculo.precioCliente     = stof(campo);         break;
+                case 11: vehiculo.precioAdquisicion = stod(campo);         break;
+                case 12: vehiculo.reparado          = (campo == "1");      break;
             }
             indice++;
         }
@@ -69,6 +74,8 @@ void VehiculoServicio::validarVehiculo(const Vehiculo& vehiculo)
         throw invalid_argument("El estado debe ser 'nuevo' o 'usado'.");
     if(vehiculo.precioCliente <= 0)
         throw invalid_argument("El precio del cliente debe ser mayor a 0.");
+    if(vehiculo.precioAdquisicion < 0)
+        throw invalid_argument("El precio de adquisicion no puede ser negativo.");
 }
 
 Vehiculo VehiculoServicio::agregarVehiculo(Vehiculo vehiculo)
@@ -76,8 +83,9 @@ Vehiculo VehiculoServicio::agregarVehiculo(Vehiculo vehiculo)
     validarVehiculo(vehiculo);
 
     vehiculo.id = ++ultimoId;
+    vehiculo.reparado = false; // Todo vehiculo nuevo entra como no reparado
 
-    string filaVehiculo = 
+    string filaVehiculo =
         to_string(vehiculo.id) + "," +
         to_string(vehiculo.anio) + "," +
         vehiculo.descripcion + "," +
@@ -88,7 +96,9 @@ Vehiculo VehiculoServicio::agregarVehiculo(Vehiculo vehiculo)
         vehiculo.kilometraje + "," +
         vehiculo.estado + "," +
         vehiculo.aseguradora + "," +
-        to_string(vehiculo.precioCliente);
+        to_string(vehiculo.precioCliente) + "," +
+        to_string(vehiculo.precioAdquisicion) + "," +
+        (vehiculo.reparado ? "1" : "0");
     editorCSV.guardarEnArchivo(filaVehiculo);
 
     return vehiculo;
@@ -118,6 +128,62 @@ list<Vehiculo> VehiculoServicio::obtenerVehiculosPorMarca(const string& marca)
     return vehiculosPorMarca;
 }
 
+list<Vehiculo> VehiculoServicio::obtenerVehiculosDisponibles()
+{
+    list<Vehiculo> vehiculos = obtenerVehiculos();
+    list<Vehiculo> disponibles;
+    for(const Vehiculo& vehiculo: vehiculos)
+    {
+        if(vehiculo.reparado)
+            disponibles.push_back(vehiculo);
+    }
+    return disponibles;
+}
+
+Vehiculo VehiculoServicio::marcarComoReparado(int id)
+{
+    list<Vehiculo> vehiculos = obtenerVehiculos();
+    bool encontrado = false;
+    Vehiculo vehiculoActualizado;
+
+    for(Vehiculo& vehiculo: vehiculos)
+    {
+        if(vehiculo.id == id)
+        {
+            vehiculo.reparado = true;
+            vehiculoActualizado = vehiculo;
+            encontrado = true;
+            break;
+        }
+    }
+
+    if(!encontrado)
+        throw invalid_argument("No se encontro un vehiculo con el ID especificado.");
+
+    vector<string> filasActualizadas;
+    for(const Vehiculo& vehiculo: vehiculos)
+    {
+        string fila =
+            to_string(vehiculo.id) + "," +
+            to_string(vehiculo.anio) + "," +
+            vehiculo.descripcion + "," +
+            vehiculo.marca + "," +
+            vehiculo.modelo + "," +
+            vehiculo.color + "," +
+            vehiculo.version + "," +
+            vehiculo.kilometraje + "," +
+            vehiculo.estado + "," +
+            vehiculo.aseguradora + "," +
+            to_string(vehiculo.precioCliente) + "," +
+            to_string(vehiculo.precioAdquisicion) + "," +
+            (vehiculo.reparado ? "1" : "0");
+        filasActualizadas.push_back(fila);
+    }
+    editorCSV.reescribirArchivo(filasActualizadas);
+
+    return vehiculoActualizado;
+}
+
 void VehiculoServicio::ordenarVehiculos(list<Vehiculo>& vehiculos)
 {
     bool intercambio;
@@ -129,6 +195,28 @@ void VehiculoServicio::ordenarVehiculos(list<Vehiculo>& vehiculos)
         while (siguiente != vehiculos.end())
         {
             if (it->id > siguiente->id)
+            {
+                swap(*it, *siguiente);
+                intercambio = true;
+            }
+            ++it;
+            ++siguiente;
+        }
+    } while (intercambio);
+}
+
+void VehiculoServicio::ordenarVehiculosPorPrecio(list<Vehiculo>& vehiculos)
+{
+    // Bubble Sort por precio de adquisicion (de menor a mayor)
+    bool intercambio;
+    do
+    {
+        intercambio = false;
+        auto it = vehiculos.begin();
+        auto siguiente = next(it);
+        while (siguiente != vehiculos.end())
+        {
+            if (it->precioAdquisicion > siguiente->precioAdquisicion)
             {
                 swap(*it, *siguiente);
                 intercambio = true;

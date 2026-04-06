@@ -17,5 +17,7 @@ struct Vehiculo
         estado,
         aseguradora;
     float precioCliente;
+    double precioAdquisicion; // Precio al que se compró el vehículo siniestrado
+    bool reparado;            // true si ya está listo para la venta
 };
 #endif // !VEHICULO_H

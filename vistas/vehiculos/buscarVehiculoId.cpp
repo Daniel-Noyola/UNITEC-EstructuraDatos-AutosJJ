@@ -9,18 +9,25 @@ void Vista::buscarVehiculoId()
 	try
 	{
 		int id = stoi(IO::pedirDato("Ingrese el ID del vehiculo: "));
-		Vehiculo vehiculoEncontrado = vehiculoServicio.obtenerVehiculoPorId(id);
-		IO::imprimirLinea("Vehiculo encontrado con ID: " + to_string(vehiculoEncontrado.id), TEXTO_EXITO);
-		IO::imprimirLinea("Anio: " + to_string(vehiculoEncontrado.anio) + ", Descripcion: " + vehiculoEncontrado.descripcion + ", Marca: " + vehiculoEncontrado.marca + ", Modelo: " + vehiculoEncontrado.modelo + ", Color: " + vehiculoEncontrado.color + ", Version: " + vehiculoEncontrado.version + ", Kilometraje: " + vehiculoEncontrado.kilometraje + ", Estado: " + vehiculoEncontrado.estado + ", Aseguradora: " + vehiculoEncontrado.aseguradora + ", Precio Cliente: " + to_string(vehiculoEncontrado.precioCliente));
+		Vehiculo v = vehiculoServicio.obtenerVehiculoPorId(id);
+		string estado = v.reparado ? "LISTO PARA VENTA" : "EN TALLER";
+		string estiloEstado = v.reparado ? TEXTO_EXITO : TEXTO_ADVERTENCIA;
+		IO::imprimirLinea("");
+		IO::imprimirLinea("--- [ Vehiculo #" + to_string(v.id) + " ] ---", TEXTO_EXITO);
+		IO::imprimirLinea("  Marca         : " + v.marca + " " + v.modelo + " " + to_string(v.anio));
+		IO::imprimirLinea("  Color         : " + v.color + "  |  Version: " + v.version);
+		IO::imprimirLinea("  Kilometraje   : " + v.kilometraje + " km");
+		IO::imprimirLinea("  Estado fisico : " + v.estado);
+		IO::imprimirLinea("  Aseguradora   : " + v.aseguradora);
+		IO::imprimirLinea("  Descripcion   : " + v.descripcion);
+		IO::imprimirLinea("  Precio Adq.   : $" + to_string(v.precioAdquisicion));
+		IO::imprimirLinea("  Precio Cliente: $" + to_string(v.precioCliente));
+		IO::imprimirLinea("  Reparacion    : " + estado, estiloEstado);
 	}
 	catch (const exception& e)
 	{
-		IO::imprimirLinea("Error al buscar el vehiculo: " + string(e.what()), TEXTO_ERROR);
+		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string opcion = IO::pedirDato("\nDeseas buscar otro vehiculo por ID? (s/n): ");
-	if (opcion == "s" || opcion == "S")
-	{
-		buscarVehiculoId();
-		return;
-	}
+	string op = IO::pedirDato("\nDeseas buscar otro vehiculo? (s/n): ");
+	if (op == "s" || op == "S") { buscarVehiculoId(); return; }
 }
