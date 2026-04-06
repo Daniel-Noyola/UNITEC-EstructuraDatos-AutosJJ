@@ -70,8 +70,12 @@ void VehiculoServicio::validarVehiculo(const Vehiculo& vehiculo)
         throw invalid_argument("El color no puede estar vacio.");
     if(vehiculo.kilometraje.empty())
         throw invalid_argument("El kilometraje no puede estar vacio.");
-    if(vehiculo.estado.empty() || (vehiculo.estado != "nuevo" && vehiculo.estado != "usado" && vehiculo.estado != "Nuevo" && vehiculo.estado != "Usado"))
-        throw invalid_argument("El estado debe ser 'nuevo' o 'usado'.");
+    if(vehiculo.estado.empty() || (
+        vehiculo.estado != "Leve"     && vehiculo.estado != "leve"     &&
+        vehiculo.estado != "Moderado" && vehiculo.estado != "moderado" &&
+        vehiculo.estado != "Severo"   && vehiculo.estado != "severo"   &&
+        vehiculo.estado != "Total"    && vehiculo.estado != "total"))
+        throw invalid_argument("El nivel de danio debe ser: Leve, Moderado, Severo o Total.");
     if(vehiculo.precioCliente <= 0)
         throw invalid_argument("El precio del cliente debe ser mayor a 0.");
     if(vehiculo.precioAdquisicion < 0)

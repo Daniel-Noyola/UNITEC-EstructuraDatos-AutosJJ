@@ -16,7 +16,7 @@ void Vista::registrarVehiculo()
 		nuevoVehiculo.color          = IO::pedirDato("Ingrese el color del vehiculo: ");
 		nuevoVehiculo.version        = IO::pedirDato("Ingrese la version del vehiculo: ");
 		nuevoVehiculo.kilometraje    = IO::pedirDato("Ingrese el kilometraje del vehiculo: ");
-		nuevoVehiculo.estado         = IO::pedirDato("Ingrese el estado del vehiculo (nuevo/usado): ");
+		nuevoVehiculo.estado         = IO::pedirDato("Nivel de danio del siniestro (Leve/Moderado/Severo/Total): ");
 		nuevoVehiculo.aseguradora    = IO::pedirDato("Ingrese la aseguradora del vehiculo: ");
 		nuevoVehiculo.precioAdquisicion = stod(IO::pedirDato("Ingrese el precio de compra (adquisicion): $"));
 		nuevoVehiculo.precioCliente  = stof(IO::pedirDato("Ingrese el precio sugerido para el cliente: $"));

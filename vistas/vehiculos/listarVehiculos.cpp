@@ -25,7 +25,7 @@ void Vista::listarVehiculos()
 				IO::imprimirLinea("  Marca         : " + v.marca + " " + v.modelo + " " + to_string(v.anio));
 				IO::imprimirLinea("  Color         : " + v.color + "  |  Version: " + v.version);
 				IO::imprimirLinea("  Kilometraje   : " + v.kilometraje + " km");
-				IO::imprimirLinea("  Estado fisico : " + v.estado);
+				IO::imprimirLinea("  Nivel de danio: " + v.estado);
 				IO::imprimirLinea("  Aseguradora   : " + v.aseguradora);
 				IO::imprimirLinea("  Descripcion   : " + v.descripcion);
 				IO::imprimirLinea("  Precio Adq.   : $" + to_string(v.precioAdquisicion));

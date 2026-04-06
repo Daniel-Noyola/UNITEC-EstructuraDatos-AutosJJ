@@ -67,12 +67,12 @@ void cargarDatosDePrueba()
 			const char* color; const char* ver; const char* km;
 			const char* estado; const char* aseg; float precioC; double precioA; bool rep;
 		} vehs[] = {
-			{2019,"Choque frontal severo","Toyota", "Corolla","Blanco","LE",    "42000","usado","HDI Seguros",  195000, 85000,  true },
-			{2021,"Perdida total trasera","Honda",  "Civic",  "Gris",  "Sport", "28000","usado","GNP Seguros",  220000, 95000,  true },
-			{2020,"Robo con recuperacion","Nissan", "Versa",  "Rojo",  "Sense", "61000","usado","Quálitas",     145000, 58000,  true },
-			{2022,"Granizo severo techo", "Mazda",  "CX-5",   "Negro", "iSport","15000","usado","AXA Seguros",  390000, 165000, false},
-			{2018,"Inundacion motor",     "Hyundai","Tucson", "Azul",  "GLS",   "74000","usado","ANA Seguros",  175000, 72000,  false},
-			{2023,"Choque lateral",       "Kia",    "Sportage","Plata","LX",    "9000", "nuevo","Seguros Atlas",480000, 210000, false},
+			{2019,"Choque frontal severo","Toyota", "Corolla","Blanco","LE",    "42000","Moderado","HDI Seguros",  195000, 85000,  true },
+			{2021,"Perdida total trasera","Honda",  "Civic",  "Gris",  "Sport", "28000","Severo",  "GNP Seguros",  220000, 95000,  true },
+			{2020,"Robo con recuperacion","Nissan", "Versa",  "Rojo",  "Sense", "61000","Leve",    "Qualitas",     145000, 58000,  true },
+			{2022,"Granizo severo techo", "Mazda",  "CX-5",   "Negro", "iSport","15000","Moderado","AXA Seguros",  390000, 165000, false},
+			{2018,"Inundacion motor",     "Hyundai","Tucson", "Azul",  "GLS",   "74000","Severo",  "ANA Seguros",  175000, 72000,  false},
+			{2023,"Choque lateral",       "Kia",    "Sportage","Plata","LX",    "9000", "Leve",    "Seguros Atlas",480000, 210000, false},
 		};
 		for(auto& v : vehs)
 		{
