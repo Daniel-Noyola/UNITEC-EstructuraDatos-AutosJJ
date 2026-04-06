@@ -1,14 +1,17 @@
-﻿#include "AutosJJ.h"
+#include "AutosJJ.h"
 #include "./includes/PantallaEnum.h"
+#include "./utilidades/Utils.h"
 
 using namespace std;
 
 int main()
 {
-	//* Configuración incial de la consola
+	//* Configuracion inicial de la consola
 	cout << COLORES_BASE << LIMPIAR_PANTALLA;
 
-	
+	//* Cargar datos de prueba si las tablas estan vacias
+	cargarDatosDePrueba();
+
 	Pantalla pantalla = Pantalla::Inicio;
 
 	// Logica para mostrar la sección correspondiente
