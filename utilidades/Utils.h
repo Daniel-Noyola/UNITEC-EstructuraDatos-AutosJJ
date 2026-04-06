@@ -3,4 +3,7 @@
 
 void calcularDiferenciaDeTiempo(int fechaAlta, int* diferenciaTiempo);
 
+/*Llena las tablas con datos de prueba si aun estan vacias*/
+void cargarDatosDePrueba();
+
 #endif

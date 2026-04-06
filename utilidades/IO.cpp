@@ -64,5 +64,10 @@ string IO::pedirDato(string texto, bool esSecreto)
 
 void IO::limpiarPantalla()
 {
-	cout << LIMPIAR_PANTALLA;
+	// cout << LIMPIAR_PANTALLA;
+	#if defined(_WIN32)
+		system("cls");
+	#else
+		system("clear");
+	#endif
 }
