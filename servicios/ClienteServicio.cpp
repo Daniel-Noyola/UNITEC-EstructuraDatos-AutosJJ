@@ -1,5 +1,9 @@
 #include "ClienteServicio.h"
 #include <sstream>
+#include <vector>
+#include <list>
+#include <iterator>
+#include <utility>
 
 int ClienteServicio::ultimoId = 1000;
 

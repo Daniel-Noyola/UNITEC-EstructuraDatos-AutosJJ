@@ -1,6 +1,9 @@
 #include "ProveedorServicio.h"
 #include <sstream>
 #include <vector>
+#include <list>
+#include <iterator>
+#include <utility>
 
 int ProveedorServicio::ultimoId = 2000;
 

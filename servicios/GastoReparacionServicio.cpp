@@ -1,6 +1,8 @@
 #include "GastoReparacionServicio.h"
 #include <sstream>
 #include <vector>
+#include <list>
+#include <iterator>
 
 int GastoReparacionServicio::ultimoId = 0;
 

@@ -1,6 +1,8 @@
 #include "VentaServicio.h"
 #include <sstream>
 #include <vector>
+#include <list>
+#include <iterator>
 using namespace std;
 
 
