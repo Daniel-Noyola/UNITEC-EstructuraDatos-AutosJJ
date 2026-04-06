@@ -6,27 +6,23 @@ void Vista::buscarClienteId()
 	ClienteServicio clienteServicio;
 
 	IO::limpiarPantalla();
-	int id = stoi(IO::pedirDato("Ingresa el ID del cliente a buscar: "));
 	IO::imprimirLinea("=== Buscar Cliente por ID ===");
 	try
 	{
-		Cliente cliente = clienteServicio.obtenerClientePorId(id);
-		IO::imprimirLinea("Cliente encontrado:", TEXTO_EXITO);
-		IO::imprimirLinea("ID: " + to_string(cliente.id));
-		IO::imprimirLinea("Nombre: " + cliente.nombre);
-		IO::imprimirLinea("Direccion: " + cliente.direccion);
-		IO::imprimirLinea("Telefono: " + cliente.telefono);
-		IO::imprimirLinea("Correo: " + cliente.correo);
-		IO::imprimirLinea("Tiempo como cliente: " + to_string(cliente.tiempoComoCliente) + " anios");
+		int id = stoi(IO::pedirDato("Ingresa el ID del cliente a buscar: "));
+		Cliente c = clienteServicio.obtenerClientePorId(id);
+		IO::imprimirLinea("");
+		IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
+		IO::imprimirLinea("  Nombre     : " + c.nombre);
+		IO::imprimirLinea("  Direccion  : " + c.direccion);
+		IO::imprimirLinea("  Telefono   : " + c.telefono);
+		IO::imprimirLinea("  Correo     : " + c.correo);
+		IO::imprimirLinea("  Antiguedad : " + to_string(c.tiempoComoCliente) + " anio(s)");
 	}
 	catch (const exception& e)
 	{
-		IO::imprimirLinea("Error al buscar el cliente: " + string(e.what()), TEXTO_ERROR);
+		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string opcion = IO::pedirDato("\nDeseas buscar otro cliente? (s/n): ");
-	if (opcion == "s" || opcion == "S")
-	{
-		buscarClienteId();
-		return;
-	}
+	string op = IO::pedirDato("\nDeseas buscar otro cliente? (s/n): ");
+	if (op == "s" || op == "S") { buscarClienteId(); return; }
 }

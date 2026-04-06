@@ -15,19 +15,19 @@ void Vista::listarClientes()
 	}
 	else
 	{
-		for (const Cliente& cliente : clientes)
+		IO::imprimirLinea(to_string(clientes.size()) + " cliente(s) encontrado(s).");
+		IO::imprimirLinea("");
+		for (const Cliente& c : clientes)
 		{
-			string textoCliente = 
-				"ID: " 
-				+ to_string(cliente.id) 
-				+ " | Nombre: " + cliente.nombre 
-				+ " | Telefono: " + cliente.telefono 
-				+ " | Email: " + cliente.correo 
-				+ " | Tiempo Como Cliente: " + to_string(cliente.tiempoComoCliente) + " anios";
-			IO::imprimirLinea(textoCliente);
+			IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
+			IO::imprimirLinea("  Nombre     : " + c.nombre);
+			IO::imprimirLinea("  Direccion  : " + c.direccion);
+			IO::imprimirLinea("  Telefono   : " + c.telefono);
+			IO::imprimirLinea("  Correo     : " + c.correo);
+			IO::imprimirLinea("  Antiguedad : " + to_string(c.tiempoComoCliente) + " anio(s)");
+			IO::imprimirLinea("");
 		}
 	}
 
-	IO::imprimirLinea("Presiona ENTER para volver al dashboard...", "", false);
-	cin.get();
+	IO::pedirDato("Presiona ENTER para volver...");
 }
