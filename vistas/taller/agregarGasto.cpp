@@ -28,7 +28,9 @@ void Vista::agregarGasto()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string opcion = IO::pedirDato("\nDeseas agregar otro gasto? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string opcion = IO::pedirDato("\nDeseas agregar otro gasto? (s/N): ");
 	if(opcion == "s" || opcion == "S")
 	{
 		agregarGasto();

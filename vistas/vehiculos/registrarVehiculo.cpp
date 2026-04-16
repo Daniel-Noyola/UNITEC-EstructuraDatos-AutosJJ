@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VehiculoServicio.h"
 
+// Registra un nuevo vehiculo (compra) en el sistema.
 void Vista::registrarVehiculo()
 {
 	VehiculoServicio vehiculoServicio;

@@ -34,7 +34,7 @@ void Vista::verGastos()
 				IO::imprimirLinea("");
 			}
 
-			// Total calculado de forma RECURSIVA
+			/*Total calculado de forma RECURSIVA*/
 			double total = GastoReparacionServicio::calcularTotalGastos(gastos.cbegin(), gastos.cend());
 			IO::imprimirLinea("  >>> TOTAL de gastos de reparacion: $" + to_string(total), TEXTO_EXITO);
 		}

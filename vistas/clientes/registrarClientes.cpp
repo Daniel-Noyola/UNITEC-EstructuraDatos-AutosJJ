@@ -9,6 +9,7 @@ void Vista::registrarCliente()
 	IO::imprimirLinea("=== Registrar Cliente ===");
 	try
 	{
+		/*Crea un nuevo cliente*/
 		Cliente nuevoCliente;
 		nuevoCliente.nombre = IO::pedirDato("Ingresa el nombre: ");
 		nuevoCliente.direccion = IO::pedirDato("Ingresa la direccion: ");
@@ -16,8 +17,12 @@ void Vista::registrarCliente()
 		nuevoCliente.correo = IO::pedirDato("Ingresa su email: ");
 
 		int anioRegistro = stoi(IO::pedirDato("Ingresa el anio en que se registro como cliente: "));
-		calcularDiferenciaDeTiempo(anioRegistro, &nuevoCliente.tiempoComoCliente);
 
+		/* -- Aqui se aplica la funcion que utiliza punteros para modificar el valor de la variable -- */
+		int *tiempoClientePtr = &nuevoCliente.tiempoComoCliente;
+		calcularDiferenciaDeTiempo(anioRegistro, tiempoClientePtr);
+
+		/*Agrega el cliente a la base de datos (CSV)*/
 		Cliente clienteRegistrado = clienteServicio.agregarCliente(nuevoCliente);
 		IO::imprimirLinea("Cliente registrado exitosamente con ID: " + to_string(clienteRegistrado.id), TEXTO_EXITO);
 	}
@@ -26,7 +31,8 @@ void Vista::registrarCliente()
 		IO::imprimirLinea("Error al registrar el cliente: " + string(e.what()), TEXTO_ERROR);
 	}
 
-	string opcion = IO::pedirDato("\nDeseas registrar otro cliente? (s/n): ");
+	/*Aplicacion alterna de recursion*/
+	string opcion = IO::pedirDato("\nDeseas registrar otro cliente? (s/N): ");
 	if (opcion == "s" || opcion == "S")
 	{
 		registrarCliente();

@@ -4,6 +4,7 @@
 #include "../../servicios/ClienteServicio.h"
 #include "../../servicios/GastoReparacionServicio.h"
 
+// Registra una venta de vehiculo disponible, calculando utilidad.
 void Vista::registrarVenta()
 {
 	VentaServicio ventaServicio;

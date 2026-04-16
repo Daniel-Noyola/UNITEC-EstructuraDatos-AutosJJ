@@ -2,6 +2,7 @@
 
 void Vista::proveedores()
 {
+	/*Menu de opciones para proveedores*/
 	vector<string> opcionesMenu = {
 		"Listar Proveedores",
 		"Registrar Proveedor",
@@ -23,6 +24,8 @@ void Vista::proveedores()
 			IO::imprimirLinea("Opcion no valida. Intente nuevamente.", TEXTO_ADVERTENCIA);
 			continue;
 		}
+
+		/*Se ejecuta la opcion seleccionada*/
 		switch(opcion)
 		{
 			case 1: Vista::listarProveedores();   break;

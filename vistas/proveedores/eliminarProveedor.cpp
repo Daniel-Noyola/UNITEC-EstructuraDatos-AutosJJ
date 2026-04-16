@@ -9,6 +9,8 @@ void Vista::eliminarProveedor()
 	try
 	{
 		int id = stoi(IO::pedirDato("Ingrese el ID del proveedor a eliminar: "));
+
+		/*Elimina el proveedor de la base de datos (CSV)*/
 		Proveedor proveedorEliminado = proveedorServicio.eliminarProveedor(id);
 		IO::imprimirLinea("Proveedor eliminado: " + proveedorEliminado.nombre + " (ID: " + to_string(proveedorEliminado.id) + ")", TEXTO_EXITO);
 	}
@@ -16,7 +18,9 @@ void Vista::eliminarProveedor()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string opcion = IO::pedirDato("\nDeseas eliminar otro proveedor? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string opcion = IO::pedirDato("\nDeseas eliminar otro proveedor? (s/N): ");
 	if(opcion == "s" || opcion == "S")
 	{
 		eliminarProveedor();

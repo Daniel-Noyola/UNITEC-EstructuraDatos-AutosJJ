@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VentaServicio.h"
 
+// Muestra el historial de ventas registradas.
 void Vista::listarVentas()
 {
 	VentaServicio ventaServicio;

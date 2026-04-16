@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VehiculoServicio.h"
 
+// Lista todos los vehiculos registrados y muestra sus detalles.
 void Vista::listarVehiculos()
 {
 	VehiculoServicio vehiculoServicio;

@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VehiculoServicio.h"
 
+// Busca un vehiculo por su ID y muestra sus detalles.
 void Vista::buscarVehiculoId()
 {
 	VehiculoServicio vehiculoServicio;

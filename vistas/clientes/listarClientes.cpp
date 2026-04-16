@@ -4,6 +4,8 @@
 void Vista::listarClientes()
 {
 	ClienteServicio clienteServicio;
+
+	/*Obtiene todos los clientes registrados*/
 	list<Cliente> clientes = clienteServicio.obtenerClientes();
 
 	IO::limpiarPantalla();

@@ -1,5 +1,6 @@
 #include "../../AutosJJ.h"
 
+// Menú principal para gestionar vehiculos y compras.
 void Vista::vehiculos()
 {
 	vector<string> opcionesMenu = {

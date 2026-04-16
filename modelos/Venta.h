@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+/*Estructura que representa una venta*/
 struct Venta
 {
     int id;

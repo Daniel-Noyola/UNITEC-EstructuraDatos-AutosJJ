@@ -2,6 +2,7 @@
 
 void Vista::taller()
 {
+	/*Menu de opciones del taller*/
 	vector<string> opcionesMenu = {
 		"Agregar Gasto de Reparacion",
 		"Ver Gastos de un Vehiculo",

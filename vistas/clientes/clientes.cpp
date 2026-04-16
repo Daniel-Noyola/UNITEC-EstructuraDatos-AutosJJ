@@ -2,6 +2,7 @@
 
 void Vista::clientes()
 {
+	/*Opciones del menu de clientes*/
 	vector<string> opcionesMenu = {
 		"Listar Clientes",
 		"Registrar Cliente",
@@ -17,6 +18,8 @@ void Vista::clientes()
 		IO::imprimirLinea("=== Clientes ===");
 		IO::imprimirMenu("Opciones disponibles:", opcionesMenu);
 		int opcion = 0;
+
+		/*Validacion de que el usuario ingresa una opcion valida*/
 		try {
 			opcion = stoi(IO::pedirDato("Seleccione una opcion: "));
 		}
@@ -25,6 +28,8 @@ void Vista::clientes()
 			IO::imprimirLinea("Opcion no valida. Intente nuevamente.", TEXTO_ADVERTENCIA);
 			continue;
 		}
+
+		/*Ejecuta la opcion seleccionada por el usuario*/
 		switch (opcion)
 		{
 		case 1: Vista::listarClientes(); break;

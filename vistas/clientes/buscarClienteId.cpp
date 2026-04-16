@@ -10,6 +10,8 @@ void Vista::buscarClienteId()
 	try
 	{
 		int id = stoi(IO::pedirDato("Ingresa el ID del cliente a buscar: "));
+
+		/*Obtiene el cliente por ID proporcinado por el usuario*/
 		Cliente c = clienteServicio.obtenerClientePorId(id);
 		IO::imprimirLinea("");
 		IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
@@ -23,6 +25,8 @@ void Vista::buscarClienteId()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string op = IO::pedirDato("\nDeseas buscar otro cliente? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string op = IO::pedirDato("\nDeseas buscar otro cliente? (s/N): ");
 	if (op == "s" || op == "S") { buscarClienteId(); return; }
 }

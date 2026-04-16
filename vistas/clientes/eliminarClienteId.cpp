@@ -9,6 +9,8 @@ void Vista::eliminarClienteId()
 	try
 	{
 		int id = stoi(IO::pedirDato("Ingresa el ID del cliente a eliminar: "));
+
+		/*Elimina el cliente por ID proporcinado por el usuario*/
 		Cliente c = clienteServicio.eliminarCliente(id);
 		IO::imprimirLinea("");
 		IO::imprimirLinea("--- [ Cliente eliminado #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
@@ -21,6 +23,8 @@ void Vista::eliminarClienteId()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string op = IO::pedirDato("\nDeseas eliminar otro cliente? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string op = IO::pedirDato("\nDeseas eliminar otro cliente? (s/N): ");
 	if (op == "s" || op == "S") { eliminarClienteId(); return; }
 }

@@ -21,6 +21,7 @@ Pantalla Vista::login()
 		string usuario = IO::pedirDato("Ingresa el usuario: ");
 		string password = IO::pedirDato("Ingresa la contrasena: ", true);
 
+		/* Verifica que los datos ingresados sean correctos*/
 		if (usuario != LOGIN_USER || password != LOGIN_PASSWORD)
 			mensaje = "Credenciales incorrectas, intenta de nuevo";
 		else

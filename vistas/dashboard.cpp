@@ -3,7 +3,7 @@
 
 Pantalla Vista::dashboard()
 {
-    //* Opciones del menu principal (orden sugerido por el actionplan)
+    /*Opciones del menu principal*/
     vector<string> opcionesMenu = {
         "Clientes",
         "Proveedores",
@@ -17,6 +17,7 @@ Pantalla Vista::dashboard()
     bool salir = false;
     string mensaje;
 
+    /*Ciclo principal del dashboard que mantiene el programa en ejecucion*/
     while (!salir)
     {
 		IO::limpiarPantalla();
@@ -26,6 +27,8 @@ Pantalla Vista::dashboard()
 		mensaje.clear();
 
         int opcion = 0;
+
+        /*Valida que el usuario ingrese una opcion valida del menu*/
         try {
             opcion = stoi(IO::pedirDato("Seleccione una opcion: "));
         }
@@ -35,6 +38,7 @@ Pantalla Vista::dashboard()
             continue;
         }
 
+        /*Ejecuta la opcion seleccionada por el usuario*/
         switch (opcion)
         {
         case 1: Vista::clientes();    break;

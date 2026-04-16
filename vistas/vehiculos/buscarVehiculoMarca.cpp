@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VehiculoServicio.h"
 
+// Busca vehiculos por marca y muestra sus detalles.
 void Vista::buscarVehiculoMarca()
 {
 	VehiculoServicio vehiculoServicio;

@@ -9,6 +9,8 @@ void Vista::buscarClienteNombre()
 	try
 	{
 		string nombre = IO::pedirDato("Ingresa el nombre del cliente a buscar: ");
+		
+		/*Obtiene el cliente por nombre proporcinado por el usuario*/
 		Cliente c = clienteServicio.obtenerClientePorNombre(nombre);
 		IO::imprimirLinea("");
 		IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
@@ -22,6 +24,8 @@ void Vista::buscarClienteNombre()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string op = IO::pedirDato("\nDeseas buscar otro cliente? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string op = IO::pedirDato("\nDeseas buscar otro cliente? (s/N): ");
 	if (op == "s" || op == "S") { buscarClienteNombre(); return; }
 }

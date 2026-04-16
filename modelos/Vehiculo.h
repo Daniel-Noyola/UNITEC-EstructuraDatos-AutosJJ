@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+/*Estructura que representa a un vehículo*/
 struct Vehiculo
 {
     int id;

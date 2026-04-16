@@ -1,6 +1,7 @@
 #include "../../AutosJJ.h"
 #include "../../servicios/VehiculoServicio.h"
 
+// Marca un vehiculo como reparado y listo para venta.
 void Vista::marcarReparado()
 {
 	VehiculoServicio vehiculoServicio;

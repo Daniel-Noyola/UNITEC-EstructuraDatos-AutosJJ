@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+/*Estructura que representa un gasto de reparación*/
 struct GastoReparacion
 {
     int id;

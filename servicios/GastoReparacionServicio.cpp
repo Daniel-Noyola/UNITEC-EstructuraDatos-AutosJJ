@@ -77,7 +77,7 @@ GastoReparacion GastoReparacionServicio::agregarGasto(GastoReparacion gasto)
     return gasto;
 }
 
-// FUNCION RECURSIVA: recorre la lista de gastos y acumula el total
+/*Funcion recursiva: recorre la lista de gastos y acumula el total*/
 double GastoReparacionServicio::calcularTotalGastos(
     list<GastoReparacion>::const_iterator it,
     list<GastoReparacion>::const_iterator fin)

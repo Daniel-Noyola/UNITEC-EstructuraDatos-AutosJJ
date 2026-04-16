@@ -15,7 +15,7 @@ void Vista::reportes()
 
 	try
 	{
-		// ─── 1. Ganancia neta total de ventas (RECURSIVA) ─────────────────
+		/*Ganancia neta total de ventas (Funcion recursiva)*/
 		list<Venta> ventas = ventaServicio.obtenerVentas();
 		double gananciaTotal = VentaServicio::calcularGananciaTotal(ventas.cbegin(), ventas.cend());
 
@@ -25,7 +25,7 @@ void Vista::reportes()
 		IO::imprimirLinea("Ganancia neta total        : $" + to_string(gananciaTotal),
 			gananciaTotal >= 0 ? TEXTO_EXITO : TEXTO_ERROR);
 
-		// ─── 2. Capital en stock (vehiculos no vendidos aun) ──────────────
+		/*Vehiculos no vendidos aun*/
 		list<Vehiculo> vehiculos = vehiculoServicio.obtenerVehiculos();
 		double capitalEnStock = 0.0;
 		int vehiculosEnTaller = 0;
@@ -47,14 +47,14 @@ void Vista::reportes()
 		IO::imprimirLinea("  - Listos para venta      : " + to_string(vehiculosDisponibles));
 		IO::imprimirLinea("Capital total invertido    : $" + to_string(capitalEnStock));
 
-		// ─── 3. Total de gastos de reparacion (RECURSIVA) ─────────────────
-		list<GastoReparacion> todosGastos = gastoServicio.obtenerGastos();
-		double totalGastosRep = GastoReparacionServicio::calcularTotalGastos(todosGastos.cbegin(), todosGastos.cend());
+		/*Total de gastos de reparacion (Funcion recursiva)*/
+		list<GastoReparacion> todosLosGastos = gastoServicio.obtenerGastos();
+		double totalGastosRep = GastoReparacionServicio::calcularTotalGastos(todosLosGastos.cbegin(), todosLosGastos.cend());
 
 		IO::imprimirLinea("");
 		IO::imprimirLinea(">>> TALLER <<<");
 		IO::imprimirLinea("Total de gastos de reparacion registrados: $" + to_string(totalGastosRep));
-		IO::imprimirLinea("Cantidad de registros de gasto: " + to_string(todosGastos.size()));
+		IO::imprimirLinea("Cantidad de registros de gasto: " + to_string(todosLosGastos.size()));
 	}
 	catch(const exception& e)
 	{

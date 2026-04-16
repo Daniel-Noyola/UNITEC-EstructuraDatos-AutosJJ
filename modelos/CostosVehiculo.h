@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+/*Estructura que representa los costos de un vehículo*/
 struct CostosVehiculo
 {
     int id;

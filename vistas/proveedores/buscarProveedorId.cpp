@@ -9,6 +9,8 @@ void Vista::buscarProveedorId()
 	try
 	{
 		int id = stoi(IO::pedirDato("Ingrese el ID del proveedor: "));
+
+		/*Busca el proveedor en la base de datos (CSV)*/
 		Proveedor proveedor = proveedorServicio.obtenerProveedorPorId(id);
 		IO::imprimirLinea("Proveedor encontrado:", TEXTO_EXITO);
 		IO::imprimirLinea("  ID       : " + to_string(proveedor.id));
@@ -21,7 +23,9 @@ void Vista::buscarProveedorId()
 	{
 		IO::imprimirLinea("Error: " + string(e.what()), TEXTO_ERROR);
 	}
-	string opcion = IO::pedirDato("\nDeseas buscar otro proveedor? (s/n): ");
+
+	/*Aplicacion alterna de recursion*/
+	string opcion = IO::pedirDato("\nDeseas buscar otro proveedor? (s/N): ");
 	if(opcion == "s" || opcion == "S")
 	{
 		buscarProveedorId();

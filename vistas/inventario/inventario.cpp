@@ -20,7 +20,7 @@ void Vista::inventario()
 		}
 		else
 		{
-			// Ordenar por precio de adquisicion (Bubble Sort)
+			/*Ordena los vehiculos por precio de adquisicion (Bubble Sort)*/
 			VehiculoServicio::ordenarVehiculosPorPrecio(disponibles);
 
 			IO::imprimirLinea(to_string(disponibles.size()) + " vehiculo(s) disponible(s).");
