@@ -13,12 +13,12 @@ void Vista::buscarClienteNombre()
 		/*Obtiene el cliente por nombre proporcinado por el usuario*/
 		Cliente c = clienteServicio.obtenerClientePorNombre(nombre);
 		IO::imprimirLinea("");
-		IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
-		IO::imprimirLinea("  Nombre      : " + c.nombre);
-		IO::imprimirLinea("  Direccion   : " + c.direccion);
-		IO::imprimirLinea("  Telefono    : " + c.telefono);
-		IO::imprimirLinea("  Correo      : " + c.correo);
-		IO::imprimirLinea("  Antiguedad  : " + to_string(c.tiempoComoCliente) + " anio(s)");
+		IO::imprimirLinea("  --- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
+		IO::imprimirLinea(" | Nombre      : " + c.nombre);
+		IO::imprimirLinea(" | Direccion   : " + c.direccion);
+		IO::imprimirLinea(" | Telefono    : " + c.telefono);
+		IO::imprimirLinea(" | Correo      : " + c.correo);
+		IO::imprimirLinea(" | Antiguedad  : " + to_string(c.tiempoComoCliente) + " anio(s)");
 	}
 	catch (const exception& e)
 	{

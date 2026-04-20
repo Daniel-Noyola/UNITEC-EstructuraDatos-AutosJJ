@@ -22,16 +22,16 @@ void Vista::listarVehiculos()
 			{
 				string estado = v.reparado ? "LISTO PARA VENTA" : "EN TALLER";
 				string estiloEstado = v.reparado ? TEXTO_EXITO : TEXTO_ADVERTENCIA;
-				IO::imprimirLinea("--- [ Vehiculo #" + to_string(v.id) + " ] ---", TEXTO_ITALIC);
-				IO::imprimirLinea("  Marca         : " + v.marca + " " + v.modelo + " " + to_string(v.anio));
-				IO::imprimirLinea("  Color         : " + v.color + "  |  Version: " + v.version);
-				IO::imprimirLinea("  Kilometraje   : " + v.kilometraje + " km");
-				IO::imprimirLinea("  Nivel de danio: " + v.estado);
-				IO::imprimirLinea("  Aseguradora   : " + v.aseguradora);
-				IO::imprimirLinea("  Descripcion   : " + v.descripcion);
-				IO::imprimirLinea("  Precio Adq.   : $" + to_string(v.precioAdquisicion));
-				IO::imprimirLinea("  Precio Cliente: $" + to_string(v.precioCliente));
-				IO::imprimirLinea("  Reparacion    : " + estado, estiloEstado);
+				IO::imprimirLinea("  --- [ Vehiculo #" + to_string(v.id) + " ] ---", TEXTO_ITALIC);
+				IO::imprimirLinea(" | Marca         : " + v.marca + " " + v.modelo + " " + to_string(v.anio));
+				IO::imprimirLinea(" | Color         : " + v.color + "  |  Version: " + v.version);
+				IO::imprimirLinea(" | Kilometraje   : " + v.kilometraje + " km");
+				IO::imprimirLinea(" | Nivel de danio: " + v.estado);
+				IO::imprimirLinea(" | Aseguradora   : " + v.aseguradora);
+				IO::imprimirLinea(" | Descripcion   : " + v.descripcion);
+				IO::imprimirLinea(" | Precio Adq.   : $" + to_string(v.precioAdquisicion));
+				IO::imprimirLinea(" | Precio Cliente: $" + to_string(v.precioCliente));
+				IO::imprimirLinea(" | Reparacion    : " + estado, estiloEstado);
 				IO::imprimirLinea("");
 			}
 		}

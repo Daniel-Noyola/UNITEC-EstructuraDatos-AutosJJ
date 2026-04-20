@@ -21,14 +21,14 @@ void Vista::listarVentas()
 			for(const Venta& v : ventas)
 			{
 				string estiloUtil = v.utilidad >= 0 ? TEXTO_EXITO : TEXTO_ERROR;
-				IO::imprimirLinea("--- [ Venta #" + to_string(v.id) + " ] ---", TEXTO_BOLD);
-				IO::imprimirLinea("  Vehiculo ID   : " + to_string(v.vehiculoId));
-				IO::imprimirLinea("  Cliente ID    : " + to_string(v.clienteId));
-				IO::imprimirLinea("  Precio Venta  : $" + to_string(v.precioVenta));
-				IO::imprimirLinea("  Precio Adq.   : $" + to_string(v.precioAdquisicion));
-				IO::imprimirLinea("  Gastos Rep.   : $" + to_string(v.totalGastos));
-				IO::imprimirLinea("  Costo Total   : $" + to_string(v.precioAdquisicion + v.totalGastos));
-				IO::imprimirLinea("  Utilidad      : $" + to_string(v.utilidad), estiloUtil);
+				IO::imprimirLinea("  --- [ Venta #" + to_string(v.id) + " ] ---", TEXTO_BOLD);
+				IO::imprimirLinea(" | Vehiculo ID   : " + to_string(v.vehiculoId));
+				IO::imprimirLinea(" | Cliente ID    : " + to_string(v.clienteId));
+				IO::imprimirLinea(" | Precio Venta  : $" + to_string(v.precioVenta));
+				IO::imprimirLinea(" | Precio Adq.   : $" + to_string(v.precioAdquisicion));
+				IO::imprimirLinea(" | Gastos Rep.   : $" + to_string(v.totalGastos));
+				IO::imprimirLinea(" | Costo Total   : $" + to_string(v.precioAdquisicion + v.totalGastos));
+				IO::imprimirLinea(" | Utilidad      : $" + to_string(v.utilidad), estiloUtil);
 				IO::imprimirLinea("");
 			}
 		}

@@ -21,12 +21,12 @@ void Vista::listarClientes()
 		IO::imprimirLinea("");
 		for (const Cliente& c : clientes)
 		{
-			IO::imprimirLinea("--- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
-			IO::imprimirLinea("  Nombre     : " + c.nombre);
-			IO::imprimirLinea("  Direccion  : " + c.direccion);
-			IO::imprimirLinea("  Telefono   : " + c.telefono);
-			IO::imprimirLinea("  Correo     : " + c.correo);
-			IO::imprimirLinea("  Antiguedad : " + to_string(c.tiempoComoCliente) + " anio(s)");
+			IO::imprimirLinea(" --- [ Cliente #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
+			IO::imprimirLinea("|  Nombre     : " + c.nombre);
+			IO::imprimirLinea("|  Direccion  : " + c.direccion);
+			IO::imprimirLinea("|  Telefono   : " + c.telefono);
+			IO::imprimirLinea("|  Correo     : " + c.correo);
+			IO::imprimirLinea("|  Antiguedad : " + to_string(c.tiempoComoCliente) + " anio(s)");
 			IO::imprimirLinea("");
 		}
 	}

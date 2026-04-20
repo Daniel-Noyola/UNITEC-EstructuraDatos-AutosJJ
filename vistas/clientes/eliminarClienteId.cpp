@@ -13,11 +13,11 @@ void Vista::eliminarClienteId()
 		/*Elimina el cliente por ID proporcinado por el usuario*/
 		Cliente c = clienteServicio.eliminarCliente(id);
 		IO::imprimirLinea("");
-		IO::imprimirLinea("--- [ Cliente eliminado #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
-		IO::imprimirLinea("  Nombre     : " + c.nombre);
-		IO::imprimirLinea("  Direccion  : " + c.direccion);
-		IO::imprimirLinea("  Telefono   : " + c.telefono);
-		IO::imprimirLinea("  Correo     : " + c.correo);
+		IO::imprimirLinea("  --- [ Cliente eliminado #" + to_string(c.id) + " ] ---", TEXTO_ITALIC);
+		IO::imprimirLinea(" | Nombre     : " + c.nombre);
+		IO::imprimirLinea(" | Direccion  : " + c.direccion);
+		IO::imprimirLinea(" | Telefono   : " + c.telefono);
+		IO::imprimirLinea(" | Correo     : " + c.correo);
 	}
 	catch (const exception& e)
 	{

@@ -19,11 +19,11 @@ void Vista::listarProveedores()
 			IO::imprimirLinea("");
 			for(const Proveedor& p : proveedores)
 			{
-				IO::imprimirLinea("--- [ Proveedor #" + to_string(p.id) + " ] ---", TEXTO_BOLD);
-				IO::imprimirLinea("  Nombre       : " + p.nombre);
-				IO::imprimirLinea("  Contacto     : " + p.contacto);
-				IO::imprimirLinea("  Direccion    : " + p.direccion);
-				IO::imprimirLinea("  Telefono     : " + p.telefono);
+				IO::imprimirLinea("  --- [ Proveedor #" + to_string(p.id) + " ] ---", TEXTO_BOLD);
+				IO::imprimirLinea(" | Nombre       : " + p.nombre);
+				IO::imprimirLinea(" | Contacto     : " + p.contacto);
+				IO::imprimirLinea(" | Direccion    : " + p.direccion);
+				IO::imprimirLinea(" | Telefono     : " + p.telefono);
 				IO::imprimirLinea("");
 			}
 		}

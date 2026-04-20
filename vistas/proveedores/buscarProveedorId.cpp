@@ -12,12 +12,12 @@ void Vista::buscarProveedorId()
 
 		/*Busca el proveedor en la base de datos (CSV)*/
 		Proveedor proveedor = proveedorServicio.obtenerProveedorPorId(id);
-		IO::imprimirLinea("Proveedor encontrado:", TEXTO_EXITO);
-		IO::imprimirLinea("  ID       : " + to_string(proveedor.id));
-		IO::imprimirLinea("  Nombre   : " + proveedor.nombre);
-		IO::imprimirLinea("  Contacto : " + proveedor.contacto);
-		IO::imprimirLinea("  Direccion: " + proveedor.direccion);
-		IO::imprimirLinea("  Telefono : " + proveedor.telefono);
+		IO::imprimirLinea("  Proveedor encontrado:", TEXTO_EXITO);
+		IO::imprimirLinea(" | ID       : " + to_string(proveedor.id));
+		IO::imprimirLinea(" | Nombre   : " + proveedor.nombre);
+		IO::imprimirLinea(" | Contacto : " + proveedor.contacto);
+		IO::imprimirLinea(" | Direccion: " + proveedor.direccion);
+		IO::imprimirLinea(" | Telefono : " + proveedor.telefono);
 	}
 	catch(const exception& e)
 	{
